@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>CUSTOM_TEXTDavid's lifestream</title>
+<link rel="alternate" type="application/rss+xml" title="david's lifestream weekly feed" href="http://david.dlma.com/lifestream/lifestream.rss" />
+<link rel="icon" href="http://david.dlma.com/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" media="all" href="lifestream.css" /> <!-- This style originally written by Jeremy Keith http://adactio.com/ Thanks, Jeremy! IOU a beer. -->
+<script type="text/javascript"><!--
+  function toggle_image(linkID, to_img) {
+  if( to_img ) {
+  document.getElementById(linkID).style.display="block";
+  document.getElementById(linkID+"_text").style.display="none";
+  } else {
+  document.getElementById(linkID).style.display="none";
+  document.getElementById(linkID+"_text").style.display="block";
+  }
+  }
+--></script>
+</head>
+<body>
+<div id="header_left"><span class="multi_header">CUSTOM_TEXT</span><a class="header_a" href="http://david.dlma.com/">david's</a> <a class="header_a" href="http://david.dlma.com/lifestream/">lifestream</a></div>
+<div id="header_right"><a class="url" href="http://dlma.com/" accesskey="1" title="Home (access key: 1)"><img class="photo fn org" src="http://dlma.com/avatars/magicavoxel_avatar_head_only_128.png" alt="David" height="100" width="100"/></a></div>
+<div align="center" style="padding-top: 5em"> 
+<table class="ls" >
+<tbody class="alive"> 
+<tr>
+    <td class="journal" width="44" onmouseout="toggle_image('david_dlma',false)" onmouseover="toggle_image('david_dlma',true)" >
+        <div id="david_dlma_text" style="text-align: center"><a title="journal: david_dlma" href="http://david.dlma.com/lifestream/david_dlma.html">Dav</a></div>
+        <div id="david_dlma" style="padding: 2px; display: none; text-align: center"><a title="journal: david_dlma" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/david_dlma.html"><img width="24" height="24" src="favicons/david_dlma.gif" alt="david_dlma" /></a></div>
+    </td> 
+    <td class="journal" width="44" onmouseout="toggle_image('facebook',false)" onmouseover="toggle_image('facebook',true)" >
+        <div id="facebook_text" style="text-align: center"><a title="journal: facebook" href="http://david.dlma.com/lifestream/facebook.html">&nbsp;f</a></div>
+        <div id="facebook" style="padding: 2px; display: none; text-align: center"><a title="journal: facebook" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/facebook.html"><img width="24" height="24" src="favicons/facebook.gif" alt="facebook" /></a></div>
+    </td> 
+    <td colspan="9" valign="top"><div align="center"><strong>Legend / Filter</strong></div></td> 
+    <td class="location" width="44" onmouseout="toggle_image('foursquare',false)" onmouseover="toggle_image('foursquare',true)" >
+        <div id="foursquare_text" style="text-align: center"><a title="location: foursquare" href="http://david.dlma.com/lifestream/foursquare.html">4Sq</a></div>
+        <div id="foursquare" style="padding: 2px; display: none; text-align: center"><a title="location: foursquare" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/foursquare.html"><img width="24" height="24" src="favicons/foursquare.gif" alt="foursquare" /></a></div>
+    </td> 
+</tr>
+<tr>
+    <td class="journal" width="44" onmouseout="toggle_image('googleplus',false)" onmouseover="toggle_image('googleplus',true)" >
+        <div id="googleplus_text" style="text-align: center"><a title="journal: googleplus" href="http://david.dlma.com/lifestream/googleplus.html">G+</a></div>
+        <div id="googleplus" style="padding: 2px; display: none; text-align: center"><a title="journal: googleplus" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/googleplus.html"><img width="24" height="24" src="favicons/googleplus.gif" alt="googleplus" /></a></div>
+    </td> 
+    <td class="journal" width="50" onmouseout="toggle_image('mydlma',false)" onmouseover="toggle_image('mydlma',true)" >
+        <div id="mydlma_text" style="text-align: center"><a title="journal: mydlma" href="http://david.dlma.com/lifestream/mydlma.html">dlma</a></div>
+        <div id="mydlma" style="padding: 2px; display: none; text-align: center"><a title="journal: mydlma" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/mydlma.html"><img width="24" height="24" src="favicons/mydlma.gif" alt="mydlma" /></a></div>
+    </td> 
+    <td class="journal" width="44" onmouseout="toggle_image('dokuwiki',false)" onmouseover="toggle_image('dokuwiki',true)" >
+        <div id="dokuwiki_text" style="text-align: center"><a title="journal: dokuwiki" href="http://david.dlma.com/lifestream/dokuwiki.html">Dok</a></div>
+        <div id="dokuwiki" style="padding: 2px; display: none; text-align: center"><a title="journal: dokuwiki" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/dokuwiki.html"><img width="24" height="24" src="favicons/dokuwiki.gif" alt="dokuwiki" /></a></div>
+    </td> 
+    <td class="link" width="46" onmouseout="toggle_image('netflix',false)" onmouseover="toggle_image('netflix',true)" >
+        <div id="netflix_text" style="text-align: center"><a title="link: netflix" href="http://david.dlma.com/lifestream/netflix.html">NtFl</a></div>
+        <div id="netflix" style="padding: 2px; display: none; text-align: center"><a title="link: netflix" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/netflix.html"><img width="24" height="24" src="favicons/netflix.gif" alt="netflix" /></a></div>
+    </td> 
+    <td class="link" width="44" onmouseout="toggle_image('blippr',false)" onmouseover="toggle_image('blippr',true)" >
+        <div id="blippr_text" style="text-align: center"><a title="link: blippr" href="http://david.dlma.com/lifestream/blippr.html">Blp</a></div>
+        <div id="blippr" style="padding: 2px; display: none; text-align: center"><a title="link: blippr" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/blippr.html"><img width="24" height="24" src="favicons/blippr.gif" alt="blippr" /></a></div>
+    </td> 
+    <td class="link" width="46" onmouseout="toggle_image('pinboard',false)" onmouseover="toggle_image('pinboard',true)" >
+        <div id="pinboard_text" style="text-align: center"><a title="link: pinboard" href="http://david.dlma.com/lifestream/pinboard.html">Pinb</a></div>
+        <div id="pinboard" style="padding: 2px; display: none; text-align: center"><a title="link: pinboard" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/pinboard.html"><img width="24" height="24" src="favicons/pinboard.gif" alt="pinboard" /></a></div>
+    </td> 
+    <td class="picture" width="46" onmouseout="toggle_image('instagram',false)" onmouseover="toggle_image('instagram',true)" >
+        <div id="instagram_text" style="text-align: center"><a title="picture: instagram" href="http://david.dlma.com/lifestream/instagram.html">Igrm</a></div>
+        <div id="instagram" style="padding: 2px; display: none; text-align: center"><a title="picture: instagram" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/instagram.html"><img width="24" height="24" src="favicons/instagram.gif" alt="instagram" /></a></div>
+    </td> 
+    <td class="picture" width="46" onmouseout="toggle_image('flickr',false)" onmouseover="toggle_image('flickr',true)" >
+        <div id="flickr_text" style="text-align: center"><a title="picture: flickr" href="http://david.dlma.com/lifestream/flickr.html">Flkr</a></div>
+        <div id="flickr" style="padding: 2px; display: none; text-align: center"><a title="picture: flickr" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/flickr.html"><img width="24" height="24" src="favicons/flickr.gif" alt="flickr" /></a></div>
+    </td> 
+    <td class="picture" width="44" onmouseout="toggle_image('tumblr',false)" onmouseover="toggle_image('tumblr',true)" >
+        <div id="tumblr_text" style="text-align: center"><a title="picture: tumblr" href="http://david.dlma.com/lifestream/tumblr.html">Tblr</a></div>
+        <div id="tumblr" style="padding: 2px; display: none; text-align: center"><a title="picture: tumblr" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/tumblr.html"><img width="24" height="24" src="favicons/tumblr.gif" alt="tumblr" /></a></div>
+    </td> 
+    <td class="message" width="44" onmouseout="toggle_image('plurk',false)" onmouseover="toggle_image('plurk',true)" >
+        <div id="plurk_text" style="text-align: center"><a title="message: plurk" href="http://david.dlma.com/lifestream/plurk.html">Plur</a></div>
+        <div id="plurk" style="padding: 2px; display: none; text-align: center"><a title="message: plurk" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/plurk.html"><img width="24" height="24" src="favicons/plurk.gif" alt="plurk" /></a></div>
+    </td> 
+    <td class="message" width="44" onmouseout="toggle_image('tasks',false)" onmouseover="toggle_image('tasks',true)" >
+        <div id="tasks_text" style="text-align: center"><a title="message: tasks" href="http://david.dlma.com/lifestream/tasks.html">TkD</a></div>
+        <div id="tasks" style="padding: 2px; display: none; text-align: center"><a title="message: tasks" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/tasks.html"><img width="24" height="24" src="favicons/tasks.gif" alt="tasks" /></a></div>
+    </td> 
+    <td class="message" width="44" onmouseout="toggle_image('twitter',false)" onmouseover="toggle_image('twitter',true)" >
+        <div id="twitter_text" style="text-align: center"><a title="message: twitter" href="http://david.dlma.com/lifestream/twitter.html">Twt</a></div>
+        <div id="twitter" style="padding: 2px; display: none; text-align: center"><a title="message: twitter" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/twitter.html"><img width="24" height="24" src="favicons/twitter.gif" alt="twitter" /></a></div>
+    </td> 
+</tr>
+<tr>
+    <td class="journal" width="44" onmouseout="toggle_image('livejournal',false)" onmouseover="toggle_image('livejournal',true)" >
+        <div id="livejournal_text" style="text-align: center"><a title="journal: livejournal" href="http://david.dlma.com/lifestream/livejournal.html">LJ</a></div>
+        <div id="livejournal" style="padding: 2px; display: none; text-align: center"><a title="journal: livejournal" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/livejournal.html"><img width="24" height="24" src="favicons/livejournal.gif" alt="livejournal" /></a></div>
+    </td> 
+    <td class="journal" width="44" onmouseout="toggle_image('wordpress',false)" onmouseover="toggle_image('wordpress',true)" >
+        <div id="wordpress_text" style="text-align: center"><a title="journal: wordpress" href="http://david.dlma.com/lifestream/wordpress.html">WP</a></div>
+        <div id="wordpress" style="padding: 2px; display: none; text-align: center"><a title="journal: wordpress" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/wordpress.html"><img width="24" height="24" src="favicons/wordpress.gif" alt="wordpress" /></a></div>
+    </td> 
+    <td class="link" width="46" onmouseout="toggle_image('amazon_wishlist',false)" onmouseover="toggle_image('amazon_wishlist',true)" >
+        <div id="amazon_wishlist_text" style="text-align: center"><a title="link: amazon_wishlist" href="http://david.dlma.com/lifestream/amazon_wishlist.html">Ama</a></div>
+        <div id="amazon_wishlist" style="padding: 2px; display: none; text-align: center"><a title="link: amazon_wishlist" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/amazon_wishlist.html"><img width="24" height="24" src="favicons/amazon_wishlist.gif" alt="amazon_wishlist" /></a></div>
+    </td> 
+    <td class="link" width="44" onmouseout="toggle_image('librarything',false)" onmouseover="toggle_image('librarything',true)" >
+        <div id="librarything_text" style="text-align: center"><a title="link: librarything" href="http://david.dlma.com/lifestream/librarything.html">LTh</a></div>
+        <div id="librarything" style="padding: 2px; display: none; text-align: center"><a title="link: librarything" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/librarything.html"><img width="24" height="24" src="favicons/librarything.gif" alt="librarything" /></a></div>
+    </td> 
+    <td class="link" width="54" onmouseout="toggle_image('digg',false)" onmouseover="toggle_image('digg',true)" >
+        <div id="digg_text" style="text-align: center"><a title="link: digg" href="http://david.dlma.com/lifestream/digg.html">Digg</a></div>
+        <div id="digg" style="padding: 2px; display: none; text-align: center"><a title="link: digg" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/digg.html"><img width="24" height="24" src="favicons/digg.gif" alt="digg" /></a></div>
+    </td> 
+    <td class="link" width="54" onmouseout="toggle_image('goodreads',false)" onmouseover="toggle_image('goodreads',true)" >
+        <div id="goodreads_text" style="text-align: center"><a title="link: goodreads" href="http://david.dlma.com/lifestream/goodreads.html">GdRd</a></div>
+        <div id="goodreads" style="padding: 2px; display: none; text-align: center"><a title="link: goodreads" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/goodreads.html"><img width="24" height="24" src="favicons/goodreads.gif" alt="goodreads" /></a></div>
+    </td> 
+    <td class="picture" width="46" onmouseout="toggle_image('hulu',false)" onmouseover="toggle_image('hulu',true)" >
+        <div id="hulu_text" style="text-align: center"><a title="picture: hulu" href="http://david.dlma.com/lifestream/hulu.html">Hulu</a></div>
+        <div id="hulu" style="padding: 2px; display: none; text-align: center"><a title="picture: hulu" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/hulu.html"><img width="24" height="24" src="favicons/hulu.gif" alt="hulu" /></a></div>
+    </td> 
+    <td class="picture" width="44" onmouseout="toggle_image('youtube',false)" onmouseover="toggle_image('youtube',true)" >
+        <div id="youtube_text" style="text-align: center"><a title="picture: youtube" href="http://david.dlma.com/lifestream/youtube.html">YTu</a></div>
+        <div id="youtube" style="padding: 2px; display: none; text-align: center"><a title="picture: youtube" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/youtube.html"><img width="24" height="24" src="favicons/youtube.gif" alt="youtube" /></a></div>
+    </td> 
+    <td class="message" width="44" onmouseout="toggle_image('jaiku',false)" onmouseover="toggle_image('jaiku',true)" >
+        <div id="jaiku_text" style="text-align: center"><a title="message: jaiku" href="http://david.dlma.com/lifestream/jaiku.html">Jku</a></div>
+        <div id="jaiku" style="padding: 2px; display: none; text-align: center"><a title="message: jaiku" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/jaiku.html"><img width="24" height="24" src="favicons/jaiku.gif" alt="jaiku" /></a></div>
+    </td> 
+    <td class="message" width="44" onmouseout="toggle_image('dblume_tasks',false)" onmouseover="toggle_image('dblume_tasks',true)" >
+        <div id="dblume_tasks_text"><a title"message: dblume_tasks" href="http://david.dlma.com/lifestream/dblume_tasks.html">TkB</a></div>
+        <div id="dblume_tasks" style="padding: 2px; display: none; text-align: center"><a title="message: dblume_tasks" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/dblume_tasks.html"><img width="24" height="24" src="favicons/dblume_tasks.gif" alt="dblume_tasks" /></a></div>
+    </td> 
+    <td class="song" width="44" onmouseout="toggle_image('overcast',false)" onmouseover="toggle_image('overcast',true)" >
+        <div id="overcast_text" style="text-align: center"><a title="song: overcast" href="http://david.dlma.com/lifestream/overcast.html">OCst</a></div>
+        <div id="overcast" style="padding: 2px; display: none; text-align: center"><a title="song: overcast" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/overcast.html"><img width="24" height="24" src="favicons/overcast.gif" alt="overcast" /></a></div>
+    </td> 
+    <td class="song" width="44" onmouseout="toggle_image('last_fm',false)" onmouseover="toggle_image('last_fm',true)" >
+        <div id="last_fm_text" style="text-align: center"><a title="song: last_fm" href="http://david.dlma.com/lifestream/last_fm.html">Las</a></div>
+        <div id="last_fm" style="padding: 2px; display: none; text-align: center"><a title="song: last_fm" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/last_fm.html"><img width="24" height="24" src="favicons/last_fm.gif" alt="last_fm" /></a></div>
+    </td> 
+</tr>
+<tr>
+    <td class="journal" width="44" height="38" onmouseout="toggle_image('rps',false)" onmouseover="toggle_image('rps',true)" >
+        <div id="rps_text" style="text-align: center"><a title="journal: rps" href="http://david.dlma.com/lifestream/rps.html">RPS</a></div>
+        <div id="rps" style="padding: 2px; display: none; text-align: center"><a title="journal: rps" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/rps.html"><img width="24" height="24" src="favicons/rps.gif" alt="rps" /></a></div>
+    </td> 
+    <td colspan="11" valign="top"></td> 
+</tr>
+</tbody></table> 
+</div>
+<br />
+<table class="ls">

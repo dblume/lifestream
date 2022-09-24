@@ -1,0 +1,464 @@
+/* This style originally written by Jeremy Keith http://adactio.com/ */
+body {
+	font-family: "Lucida Grande", "Trebuchet MS", Verdana, Helvetica, Arial, sans-serif;
+	color: #333;
+	background: #fff;
+}
+a,a img {
+	border: none;
+	text-decoration: none;
+}
+abbr {
+	text-decoration: none;
+	border: none;
+}
+#what 
+{
+	font-size: x-large;
+	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #777;
+	background: #fff;
+	text-decoration: none;
+}
+#what:hover {
+	color: #77c;
+	background: #fff;
+	text-decoration: underline;
+}
+.multi_header 
+{
+	font-size: x-large;
+	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #999;
+	background: #fff;
+	text-decoration: none;
+}
+.header_a 
+{
+	font-size: x-large;
+	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #777;
+	background: #fff;
+	text-decoration: none;
+}
+.header_a:hover {
+	color: #77c;
+	background: #fff;
+	text-decoration: underline;
+}
+table.ls 
+{
+	border-collapse: collapse;
+	margin: 0 7%;
+}
+tr.alive th {
+	font-family: Georgia, "Times New Roman", serif;
+	text-align: center;
+	font-size: 1.2em;
+	padding-top: 1em;
+	padding-bottom: 1px;
+	color: #666;
+}
+tr.fresh th {
+	color: #777;
+}
+tr.pert th {
+	color: #888;
+}
+tr.relevant th {
+	color: #999;
+}
+tr.stale th {
+	color: #aaa;
+}
+tr.old th {
+	color: #bbb;
+}
+tr.ancient th {
+	color: #ccc;
+}
+tr.dead th {
+	color: #ddd;
+}
+.to_archive {
+	font-weight: bold;
+	text-decoration: none;
+	color: #777;
+}
+.to_archive:hover {
+	color: #77c;
+	text-decoration: underline;
+}
+tbody th {
+	text-align: right;
+	padding: .5em;
+	color: #777;
+}
+#header_right 
+{
+	position:absolute;
+	top:1.5em;
+	right:3%;
+	width: 16%;
+	text-align: right;
+}
+#header_left 
+{
+	position:absolute;
+	top:2em;
+	left:3%; 
+	width:76%; 
+}
+tbody td a {
+	display: block;
+	text-decoration: none;
+	padding: .5em;
+	color: #fff;
+}
+a .header_a {
+	display: inline;
+	text-decoration: none;
+	color: #f8f;
+}
+/* "alive","fresh","pert","relevant","stale","old","ancient"  */
+.jouurnal th {
+	background: #fed;
+}
+.alive .jouurnal th {
+	color: #654;
+}
+.fresh .jouurnal th {
+	color: #765;
+}
+.pert .jouurnal th {
+	color: #876;
+}
+.relevant .jouurnal th {
+	color: #987;
+}
+.stale .jouurnal th {
+	color: #a98;
+}
+.old .jouurnal th {
+	color: #ba9;
+}
+.ancient .jouurnal th {
+	color: #cba;
+}
+.dead .jouurnal th {
+	color: #dcb;
+}
+.alive .jouurnal a {
+	background: #f93;
+}
+.fresh .jouurnal a {
+	background: #fa4;
+}
+.pert .jouurnal a {
+	background: #fb5;
+}
+.relevant .jouurnal a {
+	background: #fc6;
+}
+.stale .jouurnal a {
+	background: #fd7;
+}
+.old .jouurnal a {
+	background: #fe8;
+}
+.ancient .jouurnal a {
+	background: #ff9;
+}
+.dead .jouurnal a {
+	background: #ffa;
+}
+.jouurnal a:hover {
+	background: #c60;
+}
+.message th {
+	background: #dee;
+}
+.alive .message th {
+	color: #455;
+}
+.fresh .message th {
+	color: #566;
+}
+.pert .message th {
+	color: #677;
+}
+.relevant .message th {
+	color: #788;
+}
+.stale .message th {
+	color: #899;
+}
+.old .message th {
+	color: #9aa;
+}
+.ancient .message th {
+	color: #abb;
+}
+.dead .message th {
+	color: #bcc;
+}
+.alive .message a {
+	background: #699;
+}
+.fresh .message a {
+	background: #7aa;
+}
+.pert .message a {
+	background: #8bb;
+}
+.relevant .message a {
+	background: #9cc;
+}
+.stale .message a {
+	background: #add;
+}
+.old .message a {
+	background: #bee;
+}
+.ancient .message a {
+	background: #cff;
+}
+.dead .message a {
+	background: #dff;
+}
+.message a:hover {
+	background: #366;
+}
+.journal th {
+	background: #cde;
+}
+.alive .journal th {
+	color: #345;
+}
+.fresh .journal th {
+	color: #456;
+}
+.pert .journal th {
+	color: #567;
+}
+.relevant .journal th {
+	color: #678;
+}
+.stale .journal th {
+	color: #789;
+}
+.old .journal th {
+	color: #89a;
+}
+.ancient .journal th {
+	color: #9ab;
+}
+.dead .journal th {
+	color: #abc;
+}
+.alive .journal a {
+	background: #369;
+}
+.fresh .journal a {
+	background: #47a;
+}
+.pert .journal a {
+	background: #58b;
+}
+.relevant .journal a {
+	background: #69c;
+}
+.stale .journal a {
+	background: #7ad;
+}
+.old .journal a {
+	background: #8be;
+}
+.ancient .journal a {
+	background: #9cf;
+}
+.dead .journal a {
+	background: #adf;
+}
+.journal a:hover {
+	background: #039;
+}
+.picture th {
+	background: #fde;
+}
+.alive .picture th {
+	color: #645;
+}
+.fresh .picture th {
+	color: #756;
+}
+.pert .picture th {
+	color: #867;
+}
+.relevant .picture th {
+	color: #978;
+}
+.stale .picture th {
+	color: #a89;
+}
+.old .picture th {
+	color: #b9a;
+}
+.ancient .picture th {
+	color: #cab;
+}
+.dead .picture th {
+	color: #dbc;
+}
+.alive .picture a {
+	background: #c39;
+}
+.fresh .picture a {
+	background: #d4a;
+}
+.pert .picture a {
+	background: #e5b;
+}
+.relevant .picture a {
+	background: #f6c;
+}
+.stale .picture a {
+	background: #f7d;
+}
+.old .picture a {
+	background: #f8e;
+}
+.ancient .picture a {
+	background: #f9f;
+}
+.dead .picture a {
+	background: #faf;
+}
+.picture a:hover {
+	background: #906;
+}
+.song th {
+	background: #fee;
+	color: #655;
+}
+.alive .song th {
+	color: #655;
+}
+.fresh .song th {
+	color: #766;
+}
+.pert .song th {
+	color: #877;
+}
+.relevant .song th {
+	color: #988;
+}
+.stale .song th {
+	color: #a99;
+}
+.old .song th {
+	color: #baa;
+}
+.ancient .song th {
+	color: #cbb;
+}
+.dead .song th {
+	color: #dcc;
+}
+.alive .song a {
+	background: #933;
+}
+.fresh .song a {
+	background: #a44;
+}
+.pert .song a {
+	background: #b55;
+}
+.relevant .song a {
+	background: #c66;
+}
+.stale .song a {
+	background: #d77;
+}
+.old .song a {
+	background: #e88;
+}
+.ancient .song a {
+	background: #f99;
+}
+.dead .song a {
+	background: #faa;
+}
+.song a:hover {
+	background: #600;
+}
+.link th {
+	background: #efe;
+}
+.alive .link th {
+	color: #565;
+}
+.fresh .link th {
+	color: #676;
+}
+.pert .link th {
+	color: #787;
+}
+.relevant .link th {
+	color: #898;
+}
+.stale .link th {
+	color: #9a9;
+}
+.old .link th {
+	color: #aba;
+}
+.ancient .link th {
+	color: #bcb;
+}
+.dead .link th {
+	color: #cdc;
+}
+.alive .link a {
+	background: #393;
+}
+.fresh .link a {
+	background: #4a4;
+}
+.pert .link a {
+	background: #5b5;
+}
+.relevant .link a {
+	background: #6c6;
+}
+.stale .link a {
+	background: #7d7;
+}
+.old .link a {
+	background: #8e8;
+}
+.ancient .link a {
+	background: #9f9;
+}
+.dead .link a {
+	background: #afa;
+}
+.link a:hover {
+	background: #060;
+}
+.location th {
+	background: #CBF;
+}
+.alive .location th {
+	color: #538;
+}
+.alive .location a {
+	background: #62F;
+}
+.location a:hover {
+	background: #31A;
+}
+
