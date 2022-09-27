@@ -106,9 +106,9 @@
         <div id="librarything_text" style="text-align: center"><a title="link: librarything" href="http://david.dlma.com/lifestream/librarything.html">LTh</a></div>
         <div id="librarything" style="padding: 2px; display: none; text-align: center"><a title="link: librarything" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/librarything.html"><img width="24" height="24" src="favicons/librarything.gif" alt="librarything" /></a></div>
     </td> 
-    <td class="link" width="54" onmouseout="toggle_image('digg',false)" onmouseover="toggle_image('digg',true)" >
-        <div id="digg_text" style="text-align: center"><a title="link: digg" href="http://david.dlma.com/lifestream/digg.html">Digg</a></div>
-        <div id="digg" style="padding: 2px; display: none; text-align: center"><a title="link: digg" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/digg.html"><img width="24" height="24" src="favicons/digg.gif" alt="digg" /></a></div>
+    <td class="link" width="54" onmouseout="toggle_image('crunchyroll',false)" onmouseover="toggle_image('crunchyroll',true)" >
+        <div id="crunchyroll_text" style="text-align: center"><a title="link: crunchyroll" href="http://david.dlma.com/lifestream/crunchyroll.html">CR</a></div>
+        <div id="crunchyroll" style="padding: 2px; display: none; text-align: center"><a title="link: crunchyroll" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/crunchyroll.html"><img width="24" height="24" src="favicons/crunchyroll.gif" alt="crunchyroll" /></a></div>
     </td> 
     <td class="link" width="54" onmouseout="toggle_image('goodreads',false)" onmouseover="toggle_image('goodreads',true)" >
         <div id="goodreads_text" style="text-align: center"><a title="link: goodreads" href="http://david.dlma.com/lifestream/goodreads.html">GdRd</a></div>
