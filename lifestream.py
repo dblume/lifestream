@@ -26,7 +26,7 @@ import smtp_creds
 __author__ = "David Blume"
 __copyright__ = "Copyright 2008-2022, David Blume"
 __license__ = "MIT"
-__version__  "1.0"
+__version__ = "1.0"
 
 nth_dict = { 1 : "st",
              2 : "nd",
