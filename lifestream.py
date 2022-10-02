@@ -1,13 +1,6 @@
-#!/usr/bin/python
-# chmod 755 me, and make sure I have UNIX style newlines.
-#
-# lifestream.py
-#
-# http://www.audioscrobbler.net/development/protocol/
-# http://code.google.com/p/pyscrobble/
-#
-# Test with: ./lifestream.py
-#
+#!/usr/bin/env python
+"""Reads RSS activity feeds and generates web pages."""
+
 import feedparser
 import yaml
 import types
@@ -30,6 +23,11 @@ import httplib
 import traceback
 import smtp_creds
 
+__author__ = "David Blume"
+__copyright__ = "Copyright 2008-2022, David Blume"
+__license__ = "MIT"
+__version__  "1.0"
+
 nth_dict = { 1 : "st",
              2 : "nd",
              3 : "rd",
@@ -41,7 +39,6 @@ nth_dict = { 1 : "st",
 localdir = ''
 current_feeds_dir = ''
 permalinks_dir = ''
-##archive_feeds_dir = ''
 date_pat = re.compile('\d\d/\d\d/\d\d')
 any_entry_added = False
 earliest_entry_added = int(time.time())
@@ -130,23 +127,12 @@ def process_feed(feed_info, raw_stream):
     if feed_info.has_key('modified'):
         my_modified = time.gmtime(float(feed_info['modified']))
 
-    #
-    # HACK: Special case twitter - It is not being (un)pickled correctly
-    #       Special case for goodreads, it's returning 304 even when updated.
-    #
-    #if feed_info['name'] == 'twitter' or feed_info['name'] == 'goodreads':
-    #if feed_info['name'] == 'twitter':
-    #    my_etag = None
-    #    my_modified = None
-
     if not feed_info.has_key('feed'):
         return feed_info
     progress_text.append(feed_info['name'])
     feed = feedparser.parse(feed_info['feed'].strip('"'),
                             etag=my_etag,
                             modified=my_modified)
-##    if hasattr(feed, 'bozo_exception') and type( feed.bozo_exception ) == xml.sax._exceptions.SAXParseException:
-##      print "%s had a bozo_exception, %s." % ( feed_info['feed'].strip('"'), feed.bozo_exception )
     if hasattr(feed, 'status'):
         if feed.status == 304:
             pass
@@ -274,35 +260,6 @@ def extract_feed_info(feed, feed_name, raw_stream, prev_latest_entry, alternate_
     global any_entry_added
     global earliest_entry_added
     latest_entry = prev_latest_entry
-#    if alternate_parse:
-#        permalinks = read_archived_permalinks(feed_name)
-#        entry_added = False
-#        for entry in feed.entries:
-#
-#            #
-#            # Special YouTube hack for deleted videos
-#            #
-#            if entry.link.startswith('http://www.youtube.com/my_videos_edit?'):
-#                continue
-#
-#            if entry.link not in permalinks:
-#                description = make_description( entry )
-#                permalinks.add(entry.link)
-#                entry_added = True
-#                timecode_parsed = int(time.time())
-#                if timecode_parsed > latest_entry:
-#                    latest_entry = timecode_parsed
-#                feed_item = (timecode_parsed, unicode(feed_name), entry.link, entry.title, description, u'')
-#                pos = bisect.bisect_left( raw_stream, feed_item )
-#                if len(raw_stream) > pos and raw_stream[pos] == feed_item:
-#                    continue
-#                any_entry_added = True
-#                if timecode_parsed < earliest_entry_added:
-#                    earliest_entry_added = timecode_parsed
-#                raw_stream.insert(pos, feed_item)
-#        if entry_added:
-#            write_archived_permalinks(feed_name, permalinks)
-#        return latest_entry
 
     for entry in feed.entries:
 
@@ -340,10 +297,6 @@ def extract_feed_info(feed, feed_name, raw_stream, prev_latest_entry, alternate_
             if timecode_parsed > latest_entry:
                 latest_entry = timecode_parsed
 
-            # Special Hulu fix
-            #if feed_name == 'hulu':
-            #    entry.link = cleanse_link( entry.link, '' )
-
             #
             # If this entry is too similar to another one near the same time, exclude it.
             #
@@ -378,22 +331,22 @@ def maybe_write_feed(filename, prefs, raw_stream, now_in_seconds):
     pubDate = time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.gmtime(now_in_seconds))
     now2 = time.strftime("%a, %b %d %Y", time.gmtime(now_in_seconds))
 
-    f = codecs.open( os.path.join(localdir, filename), 'w', 'utf-8' )
-    f.write("<?xml version=\"1.0\" encoding=\"utf-8\"?><rss version=\"2.0\"><channel><title>%s</title><link>%s</link>" % ( prefs['name'].strip('"'), prefs['url'].strip('"') ))
-    f.write("<pubDate>%s</pubDate><description>%s</description><language>en-us</language>" % ( pubDate, prefs['description'].strip('"') ))
+    f = codecs.open(os.path.join(localdir, filename), 'w', 'utf-8')
+    f.write("<?xml version=\"1.0\" encoding=\"utf-8\"?><rss version=\"2.0\"><channel><title>%s</title><link>%s</link>" % (prefs['name'].strip('"'), prefs['url'].strip('"')))
+    f.write("<pubDate>%s</pubDate><description>%s</description><language>en-us</language>" % (pubDate, prefs['description'].strip('"')))
     day = 0
     this_year = time.localtime(time.time()).tm_year
     a_week_ago = time.localtime(now_in_seconds - 60 * 60 * 24 * 7)
     item_title = prefs['item_title'].strip('"') + time.strftime('%B ', a_week_ago)
     item_title += '%d%s %d' % (a_week_ago.tm_mday, nth_dict.has_key(a_week_ago.tm_mday) and nth_dict[a_week_ago.tm_mday] or "th", a_week_ago.tm_year)
     subanchor = time.strftime('%Y-%m-%d', time.localtime(raw_stream[-1][0]))
-    f.write( "<item>" \
-             "<title>%s</title>" \
-             "<pubDate>%s</pubDate>" \
-             "<link>%s</link>" \
-             "<guid isPermaLink=\"false\">%s</guid>" \
-             "<description><![CDATA[<table>" %
-             (item_title, time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.gmtime(raw_stream[-1][0])), prefs['perma_url'].strip('"') + "#" + subanchor, pubDate))
+    f.write("<item>" \
+            "<title>%s</title>" \
+            "<pubDate>%s</pubDate>" \
+            "<link>%s</link>" \
+            "<guid isPermaLink=\"false\">%s</guid>" \
+            "<description><![CDATA[<table>" %
+            (item_title, time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.gmtime(raw_stream[-1][0])), prefs['perma_url'].strip('"') + "#" + subanchor, pubDate))
     for etime, source, url, title, description, extra in reversed(raw_stream):
         current_time = time.localtime(etime)
         if current_time.tm_yday != day:
@@ -413,8 +366,8 @@ def maybe_write_feed(filename, prefs, raw_stream, now_in_seconds):
         f.write(u'<td><a rel="bookmark" href="%s">%s</a></td>\n' % (url, title))
         f.write('<td><a href="%s"><img src="http://david.dlma.com/lifestream/favicons/%s.gif" alt="%s" /></a></td>\n</tr>\n' % (style_map[source][1], source, source))
 
-    f.write( "</table>]]></description></item>" );
-    f.write( "</channel></rss>" )
+    f.write("</table>]]></description></item>");
+    f.write("</channel></rss>")
     f.close()
     return True
 
@@ -446,11 +399,11 @@ def write_html(localdir, filename, archive_date, custom_header_text, raw_stream,
     #
     # First read in the header and footer for the html page.
     #
-    f = open(os.path.join( localdir, 'index_header.txt' ), 'r')
+    f = open(os.path.join(localdir, 'index_header.txt'), 'r')
     html_header = f.read()
     f.close()
     html_header = html_header.replace("CUSTOM_TEXT", custom_header_text)
-    f = open(os.path.join( localdir, 'index_footer.txt' ), 'r')
+    f = open(os.path.join(localdir, 'index_footer.txt'), 'r')
     html_footer = f.read()
     f.close()
 
@@ -513,7 +466,7 @@ def write_individual_feed_html(localdir, modified_feeds, raw_stream, style_map):
     f.close()
     html_files = {}
     for modified_feed in modified_feeds:
-        html_header = html_header_base.replace('CUSTOM_TEXT', '%s in ' % ( modified_feed,))
+        html_header = html_header_base.replace('CUSTOM_TEXT', '%s in ' % (modified_feed,))
         filename = modified_feed + '.html'
         side_basename = '%s_new%s' % (os.path.splitext(filename))
         side_name = os.path.join(localdir, side_basename)
@@ -554,7 +507,7 @@ def write_individual_feed_html(localdir, modified_feeds, raw_stream, style_map):
 
 
 def read_archived_permalinks(feed):
-    filename = os.path.join( permalinks_dir, feed + '.txt')
+    filename = os.path.join(permalinks_dir, feed + '.txt')
     permalinks = set()
     if os.path.exists(filename):
         f = file(filename, 'r')
@@ -604,9 +557,6 @@ if __name__=='__main__':
         permalinks_dir = os.path.join(localdir, 'permalinks')
         if not os.path.exists(permalinks_dir):
             os.mkdir(permalinks_dir)
-##        archive_feeds_dir = os.path.join(localdir, 'feeds_archive')
-##        if not os.path.exists(archive_feeds_dir):
-##            os.mkdir(archive_feeds_dir)
 
         #
         # Read in lifestream_feeds.txt, which describes
@@ -675,7 +625,7 @@ if __name__=='__main__':
             #
             # Make the legend table
             #
-##            legend_table = make_legend_table(feed_infos)
+#            legend_table = make_legend_table(feed_infos)
 
             #
             # Write out the html file
@@ -734,8 +684,7 @@ if __name__=='__main__':
     else:
         lines = []
     lines = lines[:672] # Just keep the past four week's worth
-#    status = len(message.strip()) and message.strip().replace('\n', ' - ') or "OK"
-    status = len( message.strip() ) and '\n                       '.join( message.splitlines() ) or "OK"
+    status = len(message.strip()) and '\n                       '.join(message.splitlines()) or "OK"
     lines.insert(0, "%s %3.0fs %s\n" % (time.strftime('%Y-%m-%d, %H:%M', time.localtime()), time.time() - start_time, status))
     f = open(os.path.join(localdir,'stats.txt'), 'w')
     f.writelines(lines)
