@@ -53,22 +53,6 @@ def send_email(subject, message, toaddrs,
     smtp.quit()
 
 
-def unique(seq, idfun=None):
-    if idfun is None:
-        def idfun(x): return x
-    seen = {}
-    result = []
-    for item in seq:
-        marker = idfun(item)
-        # in old Python versions:
-        # if seen.has_key(marker)
-        # but in new ones:
-        if marker in seen: continue
-        seen[marker] = 1
-        result.append(item)
-    return result
-
-
 def escape_tabs(line):
     return line.replace('\\', '\\\\').replace('\t', '\\t').replace('\n', '\\n')
 
@@ -78,6 +62,7 @@ def unescape_tabs(line):
 
 
 def write_tsv(filename, lines):
+    """Saves original to the side, then writes a replacement."""
     if os.path.exists(filename + '.backup.txt'):
         os.unlink(filename + '.backup.txt')
     shutil.move(filename, filename + '.backup.txt')
@@ -227,23 +212,8 @@ def process_feed(feed_info, raw_stream):
     return feed_info
 
 
-def cleanse_link(link, default_link):
-    space = link.find(' ')
-    if space == -1:
-        return link
-    # HULU fix: Found http, but it wasn't at the beginning.  Maybe inside HTML?
-    start = link.find('http', space)
-    if start != -1:
-        end = link.find(' ', start)
-        if end == -1:
-            end = len(link)
-        if link[end - 1] == '"':
-            end -= 1
-        return link[start:end]
-    return default_link
-
-
 def make_description(entry):
+    """Return a sanitized description suitable for my TSV file."""
     max_chars = 200
     if hasattr(entry, 'description'):
         description = entry.description.replace('<BR>', ' ').replace('<br>', ' ').replace('<br />', ' ')
@@ -312,6 +282,7 @@ def extract_feed_info(feed, feed_name, raw_stream, prev_latest_entry, alternate_
 
 
 def maybe_write_feed(filename, prefs, raw_stream, now_in_seconds):
+    """Update this lifestream's RSS feed if anything happened this week."""
     #
     # If we already wrote the feed for this week (within the last six days), just return.
     #
@@ -504,39 +475,6 @@ def write_individual_feed_html(localdir, modified_feeds, raw_stream, style_map):
         if os.path.exists(html_files[key][1]):
             os.unlink(html_files[key][1])
         shutil.move(html_files[key][2], html_files[key][1])
-
-
-def read_archived_permalinks(feed):
-    filename = os.path.join(permalinks_dir, feed + '.txt')
-    permalinks = set()
-    if os.path.exists(filename):
-        f = file(filename, 'r')
-        try:
-            for permalink in f:
-                permalinks.add(permalink.strip())
-        finally:
-            f.close()
-    return permalinks
-
-
-def write_archived_permalinks(feed, permalinks):
-    filename = os.path.join(permalinks_dir, feed + '.txt')
-    finished_writing = False
-    f = file(filename + 'new.txt', 'w')
-    try:
-        for permalink in permalinks:
-            f.write(permalink + '\n')
-        finished_writing = True
-    finally:
-        f.close()
-    if finished_writing:
-        if os.path.exists(filename):
-            os.unlink(filename)
-        shutil.move(filename + 'new.txt', filename)
-
-
-def archive_ancient_rows(tsv_name, old_rows):
-    pass
 
 
 if __name__=='__main__':
