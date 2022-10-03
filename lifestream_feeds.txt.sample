@@ -1,0 +1,222 @@
+# yaml preferences for lifestream
+# http://www.yaml.org/
+# This file is read in and written by the lifestream python script
+
+-
+  name : blippr
+  style : link
+  url : "http://www.blippr.com/profiles/dblume"
+-
+  etag : "33c3-5ea25f36ea36b"
+  feed : "http://feed.dlma.com/twitter_dblume.rss"
+  latest_entry : 1664776304
+  modified : 1664823602.0
+  name : twitter
+  style : message
+  url : "http://twitter.com/dblume"
+-
+  feed : "http://www.plurk.com/user/dblume.xml"
+  latest_entry : 1650998880
+  name : plurk
+  style : message
+  url : "http://www.plurk.com/user/dblume"
+-
+  etag : "4d5e-5ea2665e7a51a-gzip"
+  feed : "http://feed.dlma.com/lastfm_feed.xml"
+  feed_old : "http://ws.audioscrobbler.com/1.0/user/davidblume/recenttracks.rss"
+  latest_entry : 1619622139
+  modified : 1664825522.0
+  name : last_fm
+  style : song
+  url : "http://www.last.fm/user/davidblume"
+-
+  etag : "1f76-5ea20399efe41-gzip"
+  feed : "http://feed.dlma.com/overcast.xml"
+  latest_entry : 1664735838
+  modified : 1664799010.0
+  name : overcast
+  style : song
+  url : "https://overcast.fm"
+-
+  feed : "http://api.flickr.com/services/feeds/photos_public.gne?id=YOURIDHERE&amp;lang=en-us&amp;format=rss_200"
+  latest_entry : 1435165200
+  modified : 1357537980.0
+  name : flickr
+  style : picture
+  url : "http://flickr.com/photos/dblume/"
+-
+  etag : "370-5a900aca5f15a-gzip"
+  feed : "http://feed.dlma.com/netflix_dvds_at_home_feed.xml"
+  latest_entry : 1593114161
+  modified : 1593195245.0
+  name : netflix
+  style : link
+  url : "http://www.netflix.com/"
+-
+  etag : 143efc9435ebc8c3d22733fd9c1e6f26
+  feed : "https://feeds.pinboard.in/rss/secret:YOURSECRETHERE/u:dblume/"
+  latest_entry : 1663677760
+  name : pinboard
+  style : link
+  url : "https://pinboard.in/u:dblume"
+-
+  feed : "http://dblume.wordpress.com/feed/"
+  latest_entry : 1435165200
+  modified : 1647718924.0
+  name : wordpress
+  style : journal
+  url : "http://dblume.wordpress.com/"
+-
+  etag : "472-5969c681b0352"
+  feed : "http://task.dlma.com/david.xml"
+  latest_entry : 1572973389
+  modified : 1572973389.0
+  name : tasks
+  style : message
+  url : "http://task.dlma.com/tasks.php?u=david"
+-
+  name : jaiku
+  style : message
+  url : "http://dblume.jaiku.com/"
+-
+  etag : "1926994b16e650b60e5198d3959621a6-gzip"
+  feed : "http://wiki.dlma.com/feed.php"
+  latest_entry : 1664545682
+  modified : 1664826124.0
+  name : dokuwiki
+  style : journal
+  url : "http://wiki.dlma.com/doku.php"
+-
+  name : pownce
+  style : link
+  url : "http://pownce.com/dblume/"
+-
+  etag : "28da-5ea1d6de6af07-gzip"
+  feed : "http://feed.dlma.com/instagram-feed.xml"
+  latest_entry : 1661284231
+  modified : 1664787002.0
+  name : instagram
+  style : picture
+  url : "http://instagram.com/davidblume/"
+-
+  etag : "2e6b-5ea260594461a-gzip"
+  feed : "http://feed.dlma.com/davids_amazon_wishlist.xml"
+  latest_entry : 1663632000
+  modified : 1664823906.0
+  name : amazon_wishlist
+  style : link
+  url : "http://www.amazon.com/gp/registry/wishlist/2W0Q65BXRKQSF"
+-
+  feed : "https://www.youtube.com/feeds/videos.xml?channel_id=YOURIDHERE"
+  latest_entry : 1610846564
+  name : youtube
+  style : picture
+  url : "http://www.youtube.com/profile?user=davidblume"
+-
+  name : digg
+  style : link
+  url : "http://digg.com/users/dblume"
+-
+  feed : "http://www.librarything.com/rss/recent/dblume"
+  latest_entry : 1615389765
+  name : librarything
+  style : link
+  url : "http://www.librarything.com/catalog/dblume"
+-
+  feed : "http://dblume.tumblr.com/rss"
+  latest_entry : 1623989545
+  name : tumblr
+  style : picture
+  url : "http://dblume.tumblr.com/"
+-
+  name : vox
+  style : journal
+  url : "https://dblume.typepad.com/blog/"
+-
+  feed : "http://my.dlma.com/feed/"
+  latest_entry : 1609462092
+  modified : 1661937582.0
+  name : mydlma
+  style : journal
+  url : "http://my.dlma.com"
+-
+  etag : GgZzuSi1G/O053xh8+isE3ypTw
+  feed : "http://dblume.livejournal.com/data/rss"
+  latest_entry : 1554179167
+  modified : 1555342196.0
+  name : livejournal
+  style : journal
+  url : "http://dblume.livejournal.com"
+-
+  name : hulu
+  style : picture
+  url : "http://www.hulu.com/profiles/davidblume"
+-
+  etag : "333-4aad4d75fa180"
+  feed : "http://rps.dlma.com/recent.xml"
+  latest_entry : 1435165200
+  modified : 1435165200.0
+  name : rps
+  style : journal
+  url : "http://rps.dlma.com/recent.html"
+-
+  etag : "6ca-45b93cff36e80-gzip"
+  feed : "http://task.dlma.com/dblume.xml"
+  latest_entry : 1226590314
+  modified : 1226590314.0
+  name : dblume_tasks
+  style : message
+  url : "http://task.dlma.com/tasks.php?u=dblume"
+-
+  etag : "aaf-5ea1da71f3095-gzip"
+  feed : "http://feed.dlma.com/youtube-favorites-feed.xml"
+  latest_entry : 1658958143
+  modified : 1664787962.0
+  name : youtube_favorites
+  style : picture
+  url : "http://www.youtube.com/profile?user=davidblume"
+-
+  feed : "https://david.dlma.com/blog/atom/1"
+  latest_entry : 1592095476
+  name : david_dlma
+  style : journal
+  url : "https://david.dlma.com/blog/"
+-
+  etag : "ca2-5ea2657a6f23c-gzip"
+  feed : "http://feed.dlma.com/foursquare_feed.xml"
+  latest_entry : 1664817693
+  modified : 1664825283.0
+  name : foursquare
+  style : location
+  url : "https://foursquare.com/user/61030"
+-
+  feed : "https://www.goodreads.com/review/list_rss/1496147?key=YOURKEYHERE&amp;shelf=read"
+  latest_entry : 1661546268
+  modified : 1624666750.0
+  name : goodreads
+  style : link
+  url : "http://www.goodreads.com/user/show/1496147"
+-
+  etag : "7269-5833dc2fe09ed"
+  feed : "http://feed.dlma.com/davids_googleplus_feed.xml"
+  latest_entry : 1551671608
+  modified : 1551676171.0
+  name : googleplus
+  style : journal
+  url : "https://plus.google.com/112121758194167388066/posts"
+-
+  etag : "30c5-5ea2608f0dbfa-gzip"
+  feed : "http://feed.dlma.com/facebook_feed.xml"
+  latest_entry : 1664682741
+  modified : 1664823963.0
+  name : facebook
+  style : journal
+  url : "https://www.facebook.com/david.blume"
+-
+  etag : "5a64-5ea204b0d6750-gzip"
+  feed : "http://feed.dlma.com/crunchyroll-activity.xml"
+  latest_entry : 1664680742
+  modified : 1664799302.0
+  name : crunchyroll
+  style : link
+  url : "https://www.crunchyroll.com/user/dblume"
