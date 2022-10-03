@@ -1,9 +1,13 @@
 # Lifestream
 
+![shortcut](https://dblume.github.io/images/all_of_lifestream.gif)
+
 This is the code for [David Blume's lifestream project](https://david.dlma.com/lifestream/).
 It was [started in 2008](https://www.plurk.com/p/2lrqa), so it uses Python 2.
 
-I have a [blog post describing it](https://david.dlma.com/blog/my-lifestream).
+I have a [blog post describing it in better detail](https://david.dlma.com/blog/my-lifestream).
+
+![shortcut](https://dblume.github.io/images/all_of_lifestream_annotated.gif)
 
 ## What is a lifestream?
 
