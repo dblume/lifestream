@@ -482,11 +482,17 @@ if __name__=='__main__':
 
     debug = False
 
+    if 'REQUEST_METHOD' in os.environ:
+        print "Content-type: text/plain; charset=utf-8\n\n"
+        print "This isn't a webpage."
+        sys.exit(0)
+
     start_time = time.time()
     progress_text = []
     old_stdout = sys.stdout
     old_stderr = sys.stderr
     sys.stdout = sys.stderr = StringIO.StringIO()
+
     try:
         localdir = os.path.dirname(sys.argv[0])
         current_feeds_dir = os.path.join(localdir, 'feeds_current')
