@@ -26,20 +26,23 @@ entries into a useful website.
 The feeds read in by the lifestream are grouped into categories. The groupings
 don't always make sense, and I may change them.
 
+Sites which don't exist anymore or whose feeds have been deprecated are marked
+with ~~strikethrough~~.
+
 ### Links
 
 These are the feeds where I am usually noting some a site's links or some way
 I've interacted with that site.
 
 * Amazon Wishlist
-* Blippr (a microblogging service for user reviews)
+* ~~Blippr~~ (a microblogging service for user reviews)
 * Crunchyroll
-* Digg
+* ~~Digg~~
 * GoodReads
-* LibraryThing
-* Netflix DVDs
+* ~~LibraryThing~~
+* ~~Netflix DVDs~~
 * Pinboard.in
-* Pownce
+* ~~Pownce~~
 
 ### Journals
 
@@ -48,11 +51,11 @@ My longer form posts.
 * David's Personal Blog
 * Dokuwiki
 * Facebook
-* Google+
-* LiveJournal
+* ~~Google+~~
+* ~~LiveJournal~~
 * My Dilemma (WordPress)
 * RPS
-* Vox
+* ~~Vox~~
 * Wordpress.com
 
 ### Messages
@@ -61,9 +64,10 @@ These are the feeds of short messages I made.
 
 * David's Personal Tasks (task.dlma.com)
 * David's Work Tasks
-* Jaiku
+* ~~Jaiku~~
 * Plurk
 * Twitter
+* Mastodon
 
 ### Songs and Audio
 
@@ -75,7 +79,7 @@ Things I've listened to.
 ### Visual: Pictures and Video
 
 * Flickr
-* Hulu
+* ~~Hulu~~
 * Instagram
 * Tumblr
 * YouTube
@@ -97,7 +101,6 @@ When this code was originally written, it was tracking DVDs mailed to me from
 Netflix, and songs I listened to on my iPhone as tracked in last.fm.
 
 Nowadays, it seems I listen to more podcasts than songs and I watch anime on Crunchyroll.
-
 ## This is an archive
 
 While the lifestream is still running as of this writing, it's not being
