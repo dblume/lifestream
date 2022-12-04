@@ -8,6 +8,6 @@
   name : "David's Lifestream (weekly summary)"
   oldest_year : 2007
   perma_url : "https://david.dlma.com/lifestream/all.html"
-  updated : 1664696536
+  updated : 1669538535
   url : "https://david.dlma.com/lifestream/index.html"
 

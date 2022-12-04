@@ -2,6 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@dblume">
+<meta name="twitter:creator" content="@dblume">
+<meta property="og:title" content="David Blume's Lifestream">
+<meta property="og:url" content="https://david.dlma.com/lifestream/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://david.dlma.com/blog/user/files/lifestream/all_of_lifestream.gif">
+<meta property="og:image:width" content="473">
+<meta property="og:image:height" content="206">
+<meta property="og:description" content="An aggregation of David's user activity feeds from across the internet. Sort of an automatic online diary.">
 <title>CUSTOM_TEXTDavid's lifestream</title>
 <link rel="alternate" type="application/rss+xml" title="david's lifestream weekly feed" href="http://david.dlma.com/lifestream/lifestream.rss" />
 <link rel="icon" href="http://david.dlma.com/favicon.ico" type="image/x-icon" />
@@ -72,9 +82,9 @@
         <div id="flickr_text" style="text-align: center"><a title="picture: flickr" href="http://david.dlma.com/lifestream/flickr.html">Flkr</a></div>
         <div id="flickr" style="padding: 2px; display: none; text-align: center"><a title="picture: flickr" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/flickr.html"><img width="24" height="24" src="favicons/flickr.gif" alt="flickr" /></a></div>
     </td> 
-    <td class="picture" width="44" onmouseout="toggle_image('tumblr',false)" onmouseover="toggle_image('tumblr',true)" >
-        <div id="tumblr_text" style="text-align: center"><a title="picture: tumblr" href="http://david.dlma.com/lifestream/tumblr.html">Tblr</a></div>
-        <div id="tumblr" style="padding: 2px; display: none; text-align: center"><a title="picture: tumblr" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/tumblr.html"><img width="24" height="24" src="favicons/tumblr.gif" alt="tumblr" /></a></div>
+    <td class="message" width="44" onmouseout="toggle_image('mastodon',false)" onmouseover="toggle_image('mastodon',true)" >
+        <div id="mastodon_text" style="text-align: center"><a title="message: mastodon" href="http://david.dlma.com/lifestream/mastodon.html">Msdn</a></div>
+        <div id="mastodon" style="padding: 2px; display: none; text-align: center"><a title="message: mastodon" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/mastodon.html"><img width="24" height="24" src="favicons/mastodon.gif" alt="mastodon" /></a></div>
     </td> 
     <td class="message" width="44" onmouseout="toggle_image('plurk',false)" onmouseover="toggle_image('plurk',true)" >
         <div id="plurk_text" style="text-align: center"><a title="message: plurk" href="http://david.dlma.com/lifestream/plurk.html">Plur</a></div>
@@ -114,9 +124,9 @@
         <div id="goodreads_text" style="text-align: center"><a title="link: goodreads" href="http://david.dlma.com/lifestream/goodreads.html">GdRd</a></div>
         <div id="goodreads" style="padding: 2px; display: none; text-align: center"><a title="link: goodreads" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/goodreads.html"><img width="24" height="24" src="favicons/goodreads.gif" alt="goodreads" /></a></div>
     </td> 
-    <td class="picture" width="46" onmouseout="toggle_image('hulu',false)" onmouseover="toggle_image('hulu',true)" >
-        <div id="hulu_text" style="text-align: center"><a title="picture: hulu" href="http://david.dlma.com/lifestream/hulu.html">Hulu</a></div>
-        <div id="hulu" style="padding: 2px; display: none; text-align: center"><a title="picture: hulu" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/hulu.html"><img width="24" height="24" src="favicons/hulu.gif" alt="hulu" /></a></div>
+    <td class="picture" width="44" onmouseout="toggle_image('tumblr',false)" onmouseover="toggle_image('tumblr',true)" >
+        <div id="tumblr_text" style="text-align: center"><a title="picture: tumblr" href="http://david.dlma.com/lifestream/tumblr.html">Tblr</a></div>
+        <div id="tumblr" style="padding: 2px; display: none; text-align: center"><a title="picture: tumblr" style="background: #fff; padding: 0" href="http://david.dlma.com/lifestream/tumblr.html"><img width="24" height="24" src="favicons/tumblr.gif" alt="tumblr" /></a></div>
     </td> 
     <td class="picture" width="44" onmouseout="toggle_image('youtube',false)" onmouseover="toggle_image('youtube',true)" >
         <div id="youtube_text" style="text-align: center"><a title="picture: youtube" href="http://david.dlma.com/lifestream/youtube.html">YTu</a></div>

@@ -40,6 +40,7 @@ localdir = ''
 current_feeds_dir = ''
 permalinks_dir = ''
 date_pat = re.compile('\d\d/\d\d/\d\d')
+html_element_pat = re.compile('<.*?>')
 any_entry_added = False
 earliest_entry_added = int(time.time())
 
@@ -216,9 +217,11 @@ def make_description(entry):
     """Return a sanitized description suitable for my TSV file."""
     max_chars = 200
     if hasattr(entry, 'description'):
-        description = entry.description.replace('<BR>', ' ').replace('<br>', ' ').replace('<br />', ' ')
+        description = entry.description.replace('<BR>', ' ').replace('<br>', ' ').replace('<br />', ' ').replace('</p>', ' ')
     else:
-        description = entry.title
+        description = entry.title.replace('<BR>', ' ').replace('<br>', ' ').replace('<br />', ' ').replace('</p>', ' ')
+    # Mastodon feeds include HTML elements like <p></p> and <a></a>
+    description = re.sub(html_element_pat, '', description)
     if len(description.splitlines()) > 1:
         description = ' '.join(description.splitlines())
     if len(description) > max_chars:
@@ -232,15 +235,11 @@ def extract_feed_info(feed, feed_name, raw_stream, prev_latest_entry, alternate_
     latest_entry = prev_latest_entry
 
     for entry in feed.entries:
-
-        #
-        # Special case for Hulu problems
-        #
-        if feed_name == 'hulu' and entry.title.find("his feed is temporarily unavailable.") != -1:
-            print "Skipping a Hulu unuavailable feed apology."
-            continue
-
         description = make_description(entry)
+        if hasattr(entry, 'title'):
+            title = entry.title
+        else:
+            title = description
         date_parsed = time.gmtime()
         date_set = False
         if hasattr(entry, 'issued_parsed'):
@@ -270,7 +269,7 @@ def extract_feed_info(feed, feed_name, raw_stream, prev_latest_entry, alternate_
             #
             # If this entry is too similar to another one near the same time, exclude it.
             #
-            feed_item = (timecode_parsed, unicode(feed_name), entry.link, entry.title, description, u'')
+            feed_item = (timecode_parsed, unicode(feed_name), entry.link, title, description, u'')
             pos = bisect.bisect_left(raw_stream, feed_item)
             if len(raw_stream) > pos and raw_stream[pos] == feed_item:
                 continue
