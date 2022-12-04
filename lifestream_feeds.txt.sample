@@ -7,33 +7,31 @@
   style : link
   url : "http://www.blippr.com/profiles/dblume"
 -
-  feed : "http://feed.dlma.com/twitter_dblume.rss"
+  feed : "https://feed.dlma.com/twitter_dblume.rss"
   name : twitter
   style : message
-  url : "http://twitter.com/dblume"
+  url : "https://twitter.com/dblume"
 -
-  feed : "http://www.plurk.com/user/dblume.xml"
+  feed : "https://www.plurk.com/user/dblume.xml"
   name : plurk
   style : message
-  url : "http://www.plurk.com/user/dblume"
+  url : "https://www.plurk.com/user/dblume"
 -
-  feed : "http://feed.dlma.com/lastfm_feed.xml"
-  feed_old : "http://ws.audioscrobbler.com/1.0/user/davidblume/recenttracks.rss"
+  feed : "https://feed.dlma.com/lastfm_feed.xml"
   name : last_fm
   style : song
-  url : "http://www.last.fm/user/davidblume"
+  url : "https://www.last.fm/user/davidblume"
 -
   feed : "http://feed.dlma.com/overcast.xml"
   name : overcast
   style : song
   url : "https://overcast.fm"
 -
-  feed : "http://api.flickr.com/services/feeds/photos_public.gne?id=YOURIDHERE&amp;lang=en-us&amp;format=rss_200"
+  feed : "https://api.flickr.com/services/feeds/photos_public.gne?id=YOURIDHERE&amp;lang=en-us&amp;format=rss_200"
   name : flickr
   style : picture
-  url : "http://flickr.com/photos/dblume/"
+  url : "https://flickr.com/photos/dblume/"
 -
-  feed : "http://feed.dlma.com/netflix_dvds_at_home_feed.xml"
   name : netflix
   style : link
   url : "http://www.netflix.com/"
@@ -43,97 +41,97 @@
   style : link
   url : "https://pinboard.in/u:dblume"
 -
-  feed : "http://dblume.wordpress.com/feed/"
+  feed : "https://dblume.wordpress.com/feed/"
   name : wordpress
   style : journal
-  url : "http://dblume.wordpress.com/"
+  url : "https://dblume.wordpress.com/"
 -
-  feed : "http://task.dlma.com/david.xml"
+  feed : "https://task.dlma.com/david.xml"
   name : tasks
   style : message
-  url : "http://task.dlma.com/tasks.php?u=david"
+  url : "https://task.dlma.com/tasks.php?u=david"
 -
   name : jaiku
   style : message
   url : "http://dblume.jaiku.com/"
 -
-  feed : "http://wiki.dlma.com/feed.php"
+  feed : "https://wiki.dlma.com/feed.php"
   name : dokuwiki
   style : journal
-  url : "http://wiki.dlma.com/doku.php"
+  url : "https://wiki.dlma.com/doku.php"
 -
   name : pownce
   style : link
   url : "http://pownce.com/dblume/"
 -
-  feed : "http://feed.dlma.com/instagram-feed.xml"
+  feed : "https://feed.dlma.com/instagram-feed.xml"
   name : instagram
   style : picture
-  url : "http://instagram.com/davidblume/"
+  url : "https://instagram.com/davidblume/"
 -
-  feed : "http://feed.dlma.com/davids_amazon_wishlist.xml"
+  feed : "https://feed.dlma.com/davids_amazon_wishlist.xml"
   name : amazon_wishlist
   style : link
-  url : "http://www.amazon.com/gp/registry/wishlist/2W0Q65BXRKQSF"
+  url : "https://www.amazon.com/gp/registry/wishlist/2W0Q65BXRKQSF"
 -
   feed : "https://www.youtube.com/feeds/videos.xml?channel_id=YOURIDHERE"
   name : youtube
   style : picture
-  url : "http://www.youtube.com/profile?user=davidblume"
+  url : "https://www.youtube.com/profile?user=davidblume"
 -
   name : digg
   style : link
   url : "http://digg.com/users/dblume"
 -
-  feed : "http://www.librarything.com/rss/recent/dblume"
+  feed : "https://www.librarything.com/rss/recent/dblume"
   name : librarything
   style : link
-  url : "http://www.librarything.com/catalog/dblume"
+  url : "https://www.librarything.com/catalog/dblume"
 -
-  feed : "http://dblume.tumblr.com/rss"
+  feed : "https://dblume.tumblr.com/rss"
   name : tumblr
   style : picture
-  url : "http://dblume.tumblr.com/"
+  url : "https://dblume.tumblr.com/"
 -
   name : vox
   style : journal
   url : "https://dblume.typepad.com/blog/"
 -
-  feed : "http://my.dlma.com/feed/"
+  feed : "https://my.dlma.com/feed/"
   name : mydlma
   style : journal
-  url : "http://my.dlma.com"
+  url : "https://my.dlma.com"
 -
-  feed : "http://dblume.livejournal.com/data/rss"
+  feed : "https://dblume.livejournal.com/data/rss"
   name : livejournal
   style : journal
-  url : "http://dblume.livejournal.com"
+  url : "https://dblume.livejournal.com"
 -
   name : hulu
   style : picture
   url : "http://www.hulu.com/profiles/davidblume"
 -
-  feed : "http://rps.dlma.com/recent.xml"
+  feed : "https://rps.dlma.com/recent.xml"
   name : rps
   style : journal
-  url : "http://rps.dlma.com/recent.html"
+  url : "https://rps.dlma.com/recent.html"
 -
-  feed : "http://task.dlma.com/dblume.xml"
+  feed : "https://task.dlma.com/dblume.xml"
   name : dblume_tasks
   style : message
-  url : "http://task.dlma.com/tasks.php?u=dblume"
+  url : "https://task.dlma.com/tasks.php?u=dblume"
 -
-  feed : "http://feed.dlma.com/youtube-favorites-feed.xml"
+  feed : "https://feed.dlma.com/youtube-favorites-feed.xml"
   name : youtube_favorites
   style : picture
-  url : "http://www.youtube.com/profile?user=davidblume"
+  url : "https://www.youtube.com/profile?user=davidblume"
 -
   feed : "https://david.dlma.com/blog/atom/1"
   name : david_dlma
   style : journal
   url : "https://david.dlma.com/blog/"
 -
-  feed : "http://feed.dlma.com/foursquare_feed.xml"
+  feed : "https://feed.dlma.com/foursquare_feed.xml"
   name : foursquare
   style : location
   url : "https://foursquare.com/user/61030"
@@ -143,17 +141,17 @@
   style : link
   url : "http://www.goodreads.com/user/show/1496147"
 -
-  feed : "http://feed.dlma.com/davids_googleplus_feed.xml"
+  feed : "https://feed.dlma.com/davids_googleplus_feed.xml"
   name : googleplus
   style : journal
   url : "https://plus.google.com/112121758194167388066/posts"
 -
-  feed : "http://feed.dlma.com/facebook_feed.xml"
+  feed : "https://feed.dlma.com/facebook_feed.xml"
   name : facebook
   style : journal
   url : "https://www.facebook.com/david.blume"
 -
-  feed : "http://feed.dlma.com/crunchyroll-activity.xml"
+  feed : "https://feed.dlma.com/crunchyroll-activity.xml"
   name : crunchyroll
   style : link
   url : "https://www.crunchyroll.com/user/dblume"
