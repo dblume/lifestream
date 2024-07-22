@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 """Reads RSS activity feeds and generates web pages."""
 
+from __future__ import print_function
 import feedparser
 import yaml
 import types
@@ -110,7 +111,9 @@ def process_feed(feed_info, raw_stream):
     my_modified = None
     if feed_info.has_key('etag'):
         my_etag = feed_info['etag']
-    if feed_info.has_key('modified'):
+    if feed_info.has_key('modified') and \
+       (not feed_info.has_key('request') or feed_info['request'] != 'unconditional'):
+        # goodreads lies. It doesn't reply with a fresh feed when given an old modified time.
         my_modified = time.gmtime(float(feed_info['modified']))
 
     if not feed_info.has_key('feed'):
@@ -126,23 +129,23 @@ def process_feed(feed_info, raw_stream):
             feed_is_modified = True
             if feed.status != 200 and feed.status != 307 and feed.status != 301 and feed.status != 302:
                 if feed.status == 503:
-                    print "%s is temporarily unavailable." % (feed_info['name'],)
+                    print("%s is temporarily unavailable." % (feed_info['name'],))
                 elif feed.status == 400:
-                    print "%s says we made a bad request." % (feed_info['name'],)
+                    print("%s says we made a bad request." % (feed_info['name'],))
                 elif feed.status == 403:
-                    print "Access to %s was forbidden." % (feed_info['name'],)
+                    print("Access to %s was forbidden." % (feed_info['name'],))
                 elif feed.status == 404:
-                    print "%s says the page was not found." % (feed_info['name'],)
+                    print("%s says the page was not found." % (feed_info['name'],))
                 elif feed.status == 408:
-                    print "The socket request to %s timed out." % (feed_info['name'],)
+                    print("The socket request to %s timed out." % (feed_info['name'],))
                 elif feed.status == 500:
-                    print "%s had an internal server error." % (feed_info['name'],)
+                    print("%s had an internal server error." % (feed_info['name'],))
                 elif feed.status == 502:
-                    print "%s reported a bad gateway error." % (feed_info['name'],)
+                    print("%s reported a bad gateway error." % (feed_info['name'],))
                 elif feed.status == 504:
-                    print "%s had a slow IP communication between back-end computers." % (feed_info['name'],)
+                    print("%s had a slow IP communication between back-end computers." % (feed_info['name'],))
                 else:
-                    print "%s returned feed.status %d." % (feed_info['feed'].strip('"'), feed.status)
+                    print("%s returned feed.status %d." % (feed_info['feed'].strip('"'), feed.status))
             else:
                 # Save off this
                 f = file(os.path.join(current_feeds_dir, feed_info['name'] + '.pickle'), 'wb')
@@ -151,13 +154,13 @@ def process_feed(feed_info, raw_stream):
                 except (pickle.PicklingError, exceptions.TypeError) as e:
                     if hasattr(feed, 'bozo_exception') and \
                        isinstance(feed.bozo_exception, xml.sax._exceptions.SAXParseException):
-                        print "%s had an unpickleable bozo_exception, %s." % \
-                              (feed_info['name'], str(feed.bozo_exception).replace('\n', ''))
+                        print("%s had an unpickleable bozo_exception, %s." % \
+                              (feed_info['name'], str(feed.bozo_exception).replace('\n', '')))
                     else:
-                        print "An error occurred while pickling %s: %s." % \
+                        print("An error occurred while pickling %s: %s." % \
                               (feed_info['name'],
                                 # str(e.__class__),
-                                str(e) )
+                                str(e)))
                     feed_is_modified = False
                 f.close()
 
@@ -187,28 +190,28 @@ def process_feed(feed_info, raw_stream):
                 print_last_line = True
                 if hasattr(e, 'reason'):
                     if e.reason[0] == 110:
-                        print "%s's connection timed out." % (feed_info['name'],)
+                        print("%s's connection timed out." % (feed_info['name'],))
                         print_last_line = False
                     elif e.reason[0] == 111:
-                        print "%s's connection was refused." % (feed_info['name'],)
+                        print("%s's connection was refused." % (feed_info['name'],))
                         print_last_line = False
                     elif e.reason[0] == 104:
-                        print "%s reset the connection." % (feed_info['name'],)
+                        print("%s reset the connection." % (feed_info['name'],))
                         print_last_line = False
                     else:
-                        print "%s had a URLError with reason %s." % (feed_info['name'], str(e.reason))
+                        print("%s had a URLError with reason %s." % (feed_info['name'], str(e.reason)))
                         print_last_line = False
                 if print_last_line:
-                    print "%s had a URLError %s" % (feed_info['name'], str(e))
+                    print("%s had a URLError %s" % (feed_info['name'], str(e)))
             elif isinstance(e, httplib.BadStatusLine):
-                print "%s gave a bad status line (%s)." % (feed_info['name'], str(e))
+                print("%s gave a bad status line (%s)." % (feed_info['name'], str(e)))
             else:
                 if len(str(e)):
-                    print "%s bozo_exception: %s \"%s\"" % (feed_info['name'], str(e.__class__), str(e))
+                    print("%s bozo_exception: %s \"%s\"" % (feed_info['name'], str(e.__class__), str(e)))
                 else:
-                    print "%s bozo_exception: %s %s" % (feed_info['name'], str(e.__class__), repr(e))
+                    print("%s bozo_exception: %s %s" % (feed_info['name'], str(e.__class__), repr(e)))
         else:
-            print "%s returned class %s, %s" % (feed_info['feed'].strip('"'), str(feed.__class__), str(feed))
+            print("%s returned class %s, %s" % (feed_info['feed'].strip('"'), str(feed.__class__), str(feed)))
 
     return feed_info
 
@@ -257,7 +260,7 @@ def extract_feed_info(feed, feed_name, raw_stream, prev_latest_entry, alternate_
 
         if not date_set:
             if feed_name != 'jaiku':
-                print "%s entry had no datestame" % (feed_name,)
+                print("%s entry had no datestame" % (feed_name,))
             continue
 
         timecode_parsed = calendar.timegm(date_parsed)
@@ -482,8 +485,8 @@ if __name__=='__main__':
     debug = False
 
     if 'REQUEST_METHOD' in os.environ:
-        print "Content-type: text/plain; charset=utf-8\n\n"
-        print "This isn't a webpage."
+        print("Content-type: text/plain; charset=utf-8\n\n")
+        print("This isn't a webpage.")
         sys.exit(0)
 
     start_time = time.time()
@@ -514,12 +517,12 @@ if __name__=='__main__':
         #
         # Read in the entire lifestream archive up to this point.
         #
-        if debug: print >> old_stdout, "Before reading in the whole stream."
+        if debug: print("Before reading in the whole stream.", file=old_stdout)
         tsv_name = os.path.join(localdir, 'current_lifestream.txt')
         raw_stream = []
         if os.path.exists(tsv_name):
             raw_stream = read_tsv(tsv_name)
-        if debug: print >> old_stdout, "After reading in the whole stream."
+        if debug: print("After reading in the whole stream.", file=old_stdout)
 
         #
         # Process each feed in feed_infos.
@@ -537,10 +540,10 @@ if __name__=='__main__':
         progress_text = ["processed feeds"]
         if slow_feeds:
             if len(slow_feeds) == 1:
-                print '%s was slow' % ', '.join(slow_feeds)
+                print('%s was slow' % ', '.join(slow_feeds))
             else:
                 slow_feed = slow_feeds.pop()
-                print '%s and %s were slow' % (', '.join(slow_feeds), slow_feed)
+                print('%s and %s were slow' % (', '.join(slow_feeds), slow_feed))
 
         # any_entry_added = True
         # modified_feeds.add('crunchyroll')
@@ -604,14 +607,14 @@ if __name__=='__main__':
 
     except Exception as e:
         exceptional_text = "An exception occurred: " + str(e.__class__) + " " + str(e)
-        print exceptional_text, ' '.join(progress_text)
+        print(exceptional_text, ' '.join(progress_text))
         traceback.print_exc(file=sys.stdout)
         try:
             send_email('Exception thrown in %s' % (os.path.basename(__file__),),
                        exceptional_text + "\n" + traceback.format_exc(),
                        ('david.blume@gmail.com',))
         except Exception as e:
-            print "Could not send email to notify you of the exception. :("
+            print("Could not send email to notify you of the exception. :(")
 
     message = sys.stdout.getvalue()
     sys.stdout = old_stdout
