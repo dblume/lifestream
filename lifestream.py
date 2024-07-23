@@ -1,13 +1,12 @@
-#!/usr/bin/env python
+#!/home/dblume/opt/python-3.9.6/bin/python3
 """Reads RSS activity feeds and generates web pages."""
 
-from __future__ import print_function
 import feedparser
 import yaml
 import types
 import os
 import time
-import StringIO
+import io
 import time
 import calendar
 import pickle
@@ -18,9 +17,8 @@ import shutil
 import smtplib
 import xml
 from datetime import datetime, timedelta
-import exceptions
-import urllib2
-import httplib
+import urllib.request, urllib.error, urllib.parse
+import http.client
 import traceback
 import smtp_creds
 
@@ -71,7 +69,7 @@ def write_tsv(filename, lines):
 
     f = codecs.open(filename, 'w', 'utf-8')
     for time, source, url, title, description, extra in lines:
-        f.write(u'\t'.join((unicode(time), source, url, escape_tabs(title), escape_tabs(description), extra)) + u'\n')
+        f.write('\t'.join((str(time), source, url, escape_tabs(title), escape_tabs(description), extra)) + '\n')
     f.close()
 
 
@@ -109,14 +107,14 @@ def process_feed(feed_info, raw_stream):
 
     my_etag = None
     my_modified = None
-    if feed_info.has_key('etag'):
+    if 'etag' in feed_info:
         my_etag = feed_info['etag']
-    if feed_info.has_key('modified') and \
-       (not feed_info.has_key('request') or feed_info['request'] != 'unconditional'):
+    if 'modified' in feed_info and \
+       ('request' not in feed_info or feed_info['request'] != 'unconditional'):
         # goodreads lies. It doesn't reply with a fresh feed when given an old modified time.
         my_modified = time.gmtime(float(feed_info['modified']))
 
-    if not feed_info.has_key('feed'):
+    if 'feed' not in feed_info:
         return feed_info
     progress_text.append(feed_info['name'])
     feed = feedparser.parse(feed_info['feed'].strip('"'),
@@ -148,10 +146,10 @@ def process_feed(feed_info, raw_stream):
                     print("%s returned feed.status %d." % (feed_info['feed'].strip('"'), feed.status))
             else:
                 # Save off this
-                f = file(os.path.join(current_feeds_dir, feed_info['name'] + '.pickle'), 'wb')
                 try:
-                    pickle.dump(feed, f)
-                except (pickle.PicklingError, exceptions.TypeError) as e:
+                    with open(os.path.join(current_feeds_dir, feed_info['name'] + '.pickle'), 'wb') as f:
+                        pickle.dump(feed, f)
+                except (pickle.PicklingError, TypeError) as e:
                     if hasattr(feed, 'bozo_exception') and \
                        isinstance(feed.bozo_exception, xml.sax._exceptions.SAXParseException):
                         print("%s had an unpickleable bozo_exception, %s." % \
@@ -168,25 +166,23 @@ def process_feed(feed_info, raw_stream):
             latest_entry = extract_feed_info(feed,
                                              feed_info['name'],
                                              raw_stream,
-                                             feed_info.has_key('latest_entry') and int(feed_info['latest_entry']) or 0,
-                                             feed_info.has_key('alternate_parse'))
+                                             'latest_entry' in feed_info and int(feed_info['latest_entry']) or 0,
+                                             'alternate_parse' in feed_info)
             if feed_is_modified:
                 feed_info['latest_entry'] = str(latest_entry)
                 modified_feeds.add(feed_info['name'])
                 if hasattr(feed, 'etag') and feed.etag != None:
                     feed_info['etag'] = feed.etag
-                elif feed_info.has_key('etag'):
+                elif 'etag' in feed_info:
                     feed_info.pop('etag')
-                if hasattr(feed, 'modified') and feed.modified != None:
-                    if type(feed.modified) == type(''):  # Needed for feedparser 5.2
-                        feed.modified = feedparser._parse_date(feed.modified)
-                    feed_info['modified'] = "%1.1f" % calendar.timegm(feed.modified)
-                elif feed_info.has_key('modified'):
+                if hasattr(feed, 'modified_parsed') and feed.modified_parsed != None:
+                    feed_info['modified'] = "%1.1f" % calendar.timegm(feed.modified_parsed)
+                elif 'modified' in feed_info:
                     feed_info.pop('modified')
     else:
         if hasattr(feed, 'bozo_exception'):
             e = feed.bozo_exception
-            if isinstance(e, urllib2.URLError): # e.__class__ == urllib2.URLError: # and hasattr(e, 'errno') and e.errno == 110:
+            if isinstance(e, urllib.error.URLError): # e.__class__ == urllib2.URLError: # and hasattr(e, 'errno') and e.errno == 110:
                 print_last_line = True
                 if hasattr(e, 'reason'):
                     if e.reason[0] == 110:
@@ -203,7 +199,7 @@ def process_feed(feed_info, raw_stream):
                         print_last_line = False
                 if print_last_line:
                     print("%s had a URLError %s" % (feed_info['name'], str(e)))
-            elif isinstance(e, httplib.BadStatusLine):
+            elif isinstance(e, http.client.BadStatusLine):
                 print("%s gave a bad status line (%s)." % (feed_info['name'], str(e)))
             else:
                 if len(str(e)):
@@ -272,7 +268,7 @@ def extract_feed_info(feed, feed_name, raw_stream, prev_latest_entry, alternate_
             #
             # If this entry is too similar to another one near the same time, exclude it.
             #
-            feed_item = (timecode_parsed, unicode(feed_name), entry.link, title, description, u'')
+            feed_item = (timecode_parsed, str(feed_name), entry.link, title, description, '')
             pos = bisect.bisect_left(raw_stream, feed_item)
             if len(raw_stream) > pos and raw_stream[pos] == feed_item:
                 continue
@@ -288,7 +284,7 @@ def maybe_write_feed(filename, prefs, raw_stream, now_in_seconds):
     #
     # If we already wrote the feed for this week (within the last six days), just return.
     #
-    if prefs.has_key('updated'):
+    if 'updated' in prefs:
         if int(prefs['updated']) + 60 * 60 * 24 * 2 > now_in_seconds:
             return False
 
@@ -311,7 +307,7 @@ def maybe_write_feed(filename, prefs, raw_stream, now_in_seconds):
     this_year = time.localtime(time.time()).tm_year
     a_week_ago = time.localtime(now_in_seconds - 60 * 60 * 24 * 7)
     item_title = prefs['item_title'].strip('"') + time.strftime('%B ', a_week_ago)
-    item_title += '%d%s %d' % (a_week_ago.tm_mday, nth_dict.has_key(a_week_ago.tm_mday) and nth_dict[a_week_ago.tm_mday] or "th", a_week_ago.tm_year)
+    item_title += '%d%s %d' % (a_week_ago.tm_mday, a_week_ago.tm_mday in nth_dict and nth_dict[a_week_ago.tm_mday] or "th", a_week_ago.tm_year)
     subanchor = time.strftime('%Y-%m-%d', time.localtime(raw_stream[-1][0]))
     f.write("<item>" \
             "<title>%s</title>" \
@@ -328,15 +324,15 @@ def maybe_write_feed(filename, prefs, raw_stream, now_in_seconds):
                 break
             t_string = time.strftime('%B', current_time)
             if current_time.tm_year == this_year:
-                t_string += ' %d%s' % (current_time.tm_mday, nth_dict.has_key(current_time.tm_mday) and nth_dict[current_time.tm_mday] or "th")
+                t_string += ' %d%s' % (current_time.tm_mday, current_time.tm_mday in nth_dict and nth_dict[current_time.tm_mday] or "th")
             else:
-                t_string += ' %d%s %d' % (current_time.tm_mday, nth_dict.has_key(current_time.tm_mday) and nth_dict[current_time.tm_mday] or "th", current_time.tm_year)
+                t_string += ' %d%s %d' % (current_time.tm_mday, current_time.tm_mday in nth_dict and nth_dict[current_time.tm_mday] or "th", current_time.tm_year)
             anchor_date = time.strftime('%Y-%m-%d', current_time)
             f.write('<tr><th colspan="3"><center>%s</center></th></tr>\n' % (t_string, ) )
             day = current_time.tm_yday
         f.write('<tr>\n' \
                 '<th>%s</th>\n' % (time.strftime('%I:%M%p', current_time).lower().lstrip('0'),) )
-        f.write(u'<td><a rel="bookmark" href="%s">%s</a></td>\n' % (url, title))
+        f.write('<td><a rel="bookmark" href="%s">%s</a></td>\n' % (url, title))
         f.write('<td><a href="%s"><img src="http://david.dlma.com/lifestream/favicons/%s.gif" alt="%s" /></a></td>\n</tr>\n' % (style_map[source][1], source, source))
 
     f.write("</table>]]></description></item>");
@@ -348,7 +344,7 @@ def maybe_write_feed(filename, prefs, raw_stream, now_in_seconds):
 def make_stylemap(feed_infos):
     d = {}
     for feed_info in feed_infos:
-        if type(feed_info) == types.StringType:
+        if type(feed_info) == bytes:
             continue
         d[feed_info['name']] = (feed_info['style'], feed_info['url'].strip('"'))
     return d
@@ -357,7 +353,7 @@ def make_stylemap(feed_infos):
 def make_legend_table(feed_infos):
     l = []
     for feed_info in feed_infos:
-        if type(feed_info) == types.StringType:
+        if type(feed_info) == bytes:
             continue
         bisect.insort(l, (feed_info['style'], feed_info['name'], feed_info['url'].strip('"')))
     s = '<table class="ls"><tr class="alive"><th colspan="2">Legend</th></tr><tbody class="alive">\n'
@@ -401,9 +397,9 @@ def write_html(localdir, filename, archive_date, custom_header_text, raw_stream,
                 break
             t_string = time.strftime('%B', current_time)
             if current_time.tm_year == this_year:
-                t_string += ' %d%s' % (current_time.tm_mday, nth_dict.has_key(current_time.tm_mday) and nth_dict[current_time.tm_mday] or "th")
+                t_string += ' %d%s' % (current_time.tm_mday, current_time.tm_mday in nth_dict and nth_dict[current_time.tm_mday] or "th")
             else:
-                t_string += ' %d%s %d' % (current_time.tm_mday, nth_dict.has_key(current_time.tm_mday) and nth_dict[current_time.tm_mday] or "th", current_time.tm_year)
+                t_string += ' %d%s %d' % (current_time.tm_mday, current_time.tm_mday in nth_dict and nth_dict[current_time.tm_mday] or "th", current_time.tm_year)
             anchor_date = time.strftime('%Y-%m-%d', current_time)
             if current_time.tm_wday == 5 or current_time.tm_wday == 6:
                 f.write('<tr class="alive"><th colspan="3"><a name="%s" id="%s">' \
@@ -416,7 +412,7 @@ def write_html(localdir, filename, archive_date, custom_header_text, raw_stream,
         f.write('<tr class="vevent hentry %s">\n' \
                 '<th><abbr class="dtstart published updated" title="%s">%s</abbr></th>\n' % \
                 (style_map[source][0], time.strftime('%Y-%m-%dT%H:%M:%S+08:00', current_time), time.strftime('%I:%M%p', current_time).lower().lstrip('0')) )
-        f.write(u'<td><a rel="bookmark" class="url summary entry-summary" href="%s">%s</a></td>\n' % (url, title))
+        f.write('<td><a rel="bookmark" class="url summary entry-summary" href="%s">%s</a></td>\n' % (url, title))
         f.write('<td><a style="background: #fff; padding: 0" href="%s.html"><img src="favicons/%s.gif" alt="%s" /></a></td>\n</tr>\n' % (source, source, source))
     if day != 0:
         f.write('</tbody>')
@@ -467,10 +463,10 @@ def write_individual_feed_html(localdir, modified_feeds, raw_stream, style_map):
                      time.strftime('%Y-%m-%dT%H:%M:%S+08:00', current_time),
                      t_string,
                      time.strftime('%I:%M%p', current_time).lower().lstrip('0')))
-            f.write(u'<td><a rel="bookmark" class="url summary entry-summary" href="%s">%s</a></td>\n' % (url, title))
+            f.write('<td><a rel="bookmark" class="url summary entry-summary" href="%s">%s</a></td>\n' % (url, title))
             f.write('<td><a style="background: #fff; padding: 0" href="%s"><img src="favicons/%s.gif" alt="%s" /></a></td>\n</tr>\n' % (style_map[source][1], source, source))
 
-    for key in html_files.keys():
+    for key in list(html_files.keys()):
         html_files[key][0].write('</tbody>')
         html_files[key][0].write(html_footer % time.strftime('%H:%M, %Y-%m-%d', time.localtime()))
         html_files[key][0].close()
@@ -493,7 +489,7 @@ if __name__=='__main__':
     progress_text = []
     old_stdout = sys.stdout
     old_stderr = sys.stderr
-    sys.stdout = sys.stderr = StringIO.StringIO()
+    sys.stdout = sys.stderr = io.StringIO()
 
     try:
         localdir = os.path.dirname(sys.argv[0])
@@ -508,11 +504,9 @@ if __name__=='__main__':
         # Read in lifestream_feeds.txt, which describes
         # each feed we'll parse.
         #
-        yaml_fullpath = os.path.join(localdir,'lifestream_feeds.txt')
-        f = file(yaml_fullpath, 'r')
-        lines = f.read()
-        f.close()
-        feed_infos = yaml.read(lines, False)
+        yaml_fullpath = os.path.join(localdir, 'lifestream_feeds.txt')
+        with open(yaml_fullpath, 'r') as f:
+            feed_infos = yaml.load(f, Loader=yaml.Loader)
 
         #
         # Read in the entire lifestream archive up to this point.
@@ -530,7 +524,7 @@ if __name__=='__main__':
         modified_feeds = set()
         slow_feeds = set()
         for feed_info in feed_infos:
-            if type(feed_info) == types.StringType:
+            if type(feed_info) == bytes:
                 continue
             process_feed_start_time = time.time()
             feed_info = process_feed(feed_info, raw_stream)
@@ -561,7 +555,8 @@ if __name__=='__main__':
             #
             # Write out the updated lifestream_feeds.txt file.
             #
-            yaml.write(yaml_fullpath, feed_infos)
+            with open(yaml_fullpath, 'w') as f:
+                yaml.dump(feed_infos, stream=f, width=120)
 
             #
             # Extract the style map from the feed_infos
@@ -587,23 +582,22 @@ if __name__=='__main__':
         now_in_seconds = int(time.time())
         local_now = time.localtime(now_in_seconds)
         if local_now.tm_wday == 6:  # 0 == Monday
-            if not globals().has_key('style_map'):
+            if 'style_map' not in globals():
                 style_map = make_stylemap(feed_infos)
             #
             # Call maybe_write_feed with the structure in preferences.txt
             #
             preferences_fullpath = os.path.join(localdir, 'preferences.txt')
-            f = file(preferences_fullpath, 'r')
-            lines = f.read()
-            f.close()
-            preferences = yaml.read(lines, False)
+            with open(preferences_fullpath, 'r') as f:
+                preferences = yaml.load(f, Loader=yaml.Loader)
             for item in preferences:
                 # Skip the comments in the yaml file
-                if type(item) == types.StringType:
+                if type(item) == bytes:
                     continue
                 # There's only one structure, it's this one.  Pass it in.
                 if maybe_write_feed('lifestream.rss', item, raw_stream, now_in_seconds):
-                    yaml.write(preferences_fullpath, preferences)
+                    with open(preferences_fullpath, 'w') as f:
+                        yaml.dump(preferences, stream=f, width=120)
 
     except Exception as e:
         exceptional_text = "An exception occurred: " + str(e.__class__) + " " + str(e)
@@ -622,16 +616,12 @@ if __name__=='__main__':
 
     # Finally, let's save this to a statistics page
     if os.path.exists(os.path.join(localdir,'stats.txt')):
-        f = open(os.path.join(localdir,'stats.txt'))
-        try:
+        with open(os.path.join(localdir,'stats.txt')) as f:
             lines = f.readlines()
-        finally:
-            f.close()
     else:
         lines = []
     lines = lines[:672] # Just keep the past four week's worth
     status = len(message.strip()) and '\n                       '.join(message.splitlines()) or "OK"
     lines.insert(0, "%s %3.0fs %s\n" % (time.strftime('%Y-%m-%d, %H:%M', time.localtime()), time.time() - start_time, status))
-    f = open(os.path.join(localdir,'stats.txt'), 'w')
-    f.writelines(lines)
-    f.close()
+    with open(os.path.join(localdir,'stats.txt'), 'w') as f:
+        f.writelines(lines)
