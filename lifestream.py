@@ -112,18 +112,17 @@ def process_feed(feed_info, raw_stream):
     if 'modified' in feed_info and \
        ('request' not in feed_info or feed_info['request'] != 'unconditional'):
         # goodreads lies. It doesn't reply with a fresh feed when given an old modified time.
-        my_modified = time.gmtime(float(feed_info['modified']))
+        my_modified = feed_info['modified']
 
     if 'feed' not in feed_info:
         return feed_info
     progress_text.append(feed_info['name'])
-    feed = feedparser.parse(feed_info['feed'].strip('"'),
-                            etag=my_etag,
-                            modified=my_modified)
+    if my_modified is not None:
+        feed = feedparser.parse(feed_info['feed'].strip('"'), modified=my_modified)
+    else:
+        feed = feedparser.parse(feed_info['feed'].strip('"'), etag=my_etag)
     if hasattr(feed, 'status'):
-        if feed.status == 304:
-            pass
-        else:
+        if feed.status != 304:
             feed_is_modified = True
             if feed.status != 200 and feed.status != 307 and feed.status != 301 and feed.status != 302:
                 if feed.status == 503:
@@ -166,8 +165,7 @@ def process_feed(feed_info, raw_stream):
             latest_entry = extract_feed_info(feed,
                                              feed_info['name'],
                                              raw_stream,
-                                             'latest_entry' in feed_info and int(feed_info['latest_entry']) or 0,
-                                             'alternate_parse' in feed_info)
+                                             'latest_entry' in feed_info and int(feed_info['latest_entry']) or 0)
             if feed_is_modified:
                 feed_info['latest_entry'] = str(latest_entry)
                 modified_feeds.add(feed_info['name'])
@@ -175,8 +173,8 @@ def process_feed(feed_info, raw_stream):
                     feed_info['etag'] = feed.etag
                 elif 'etag' in feed_info:
                     feed_info.pop('etag')
-                if hasattr(feed, 'modified_parsed') and feed.modified_parsed != None:
-                    feed_info['modified'] = "%1.1f" % calendar.timegm(feed.modified_parsed)
+                if hasattr(feed, 'modified') and feed.modified != None:
+                    feed_info['modified'] = feed.modified
                 elif 'modified' in feed_info:
                     feed_info.pop('modified')
     else:
@@ -228,7 +226,7 @@ def make_description(entry):
     return description
 
 
-def extract_feed_info(feed, feed_name, raw_stream, prev_latest_entry, alternate_parse):
+def extract_feed_info(feed, feed_name, raw_stream, prev_latest_entry):
     global any_entry_added
     global earliest_entry_added
     latest_entry = prev_latest_entry
