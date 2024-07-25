@@ -3,7 +3,8 @@
 ![shortcut](https://dblume.github.io/images/all_of_lifestream.gif)
 
 This is the code for [David Blume's lifestream project](https://david.dlma.com/lifestream/).
-It was [started in 2008](https://www.plurk.com/p/2lrqa), so it uses Python 2.
+It was [started in 2008](https://www.plurk.com/p/2lrqa), so it was originally in Python 2.
+It was migrated to Python 3, but not cleaned up.
 
 I have a [blog post describing it in better detail](https://david.dlma.com/blog/my-lifestream).
 
@@ -31,7 +32,7 @@ with ~~strikethrough~~.
 
 ### Links
 
-These are the feeds where I am usually noting some a site's links or some way
+These are the feeds where I am usually noting some site's links or some way
 I've interacted with that site.
 
 * Amazon Wishlist
@@ -54,7 +55,7 @@ My longer form posts.
 * ~~Google+~~
 * ~~LiveJournal~~
 * My Dilemma (WordPress)
-* RPS
+* ~~RPS~~
 * ~~Vox~~
 * Wordpress.com
 
@@ -66,7 +67,7 @@ These are the feeds of short messages I made.
 * David's Work Tasks
 * ~~Jaiku~~
 * Plurk
-* Twitter
+* ~~Twitter~~
 * Mastodon
 
 ### Songs and Audio
@@ -89,11 +90,10 @@ Things I've listened to.
 
 * FourSquare
 
-## This is not good code. It never was
+## Changes I'd like to make
 
-1. It's Python 2. Nowadays don't write code in Python 2.
-2. I didn't know about the Python [logging](https://docs.python.org/3/library/logging.html) module when I wrote it.
-3. It's very bespoke code for one special use-case.
+1. I should use the [logging](https://docs.python.org/3/library/logging.html) module.
+2. PEP-8
 
 ## My, how things change in 15 years
 
@@ -101,6 +101,7 @@ When this code was originally written, it was tracking DVDs mailed to me from
 Netflix, and songs I listened to on my iPhone as tracked in last.fm.
 
 Nowadays, it seems I listen to more podcasts than songs and I watch anime on Crunchyroll.
+
 ## This is an archive
 
 While the lifestream is still running as of this writing, it's not being

@@ -21,6 +21,7 @@ import urllib.request, urllib.error, urllib.parse
 import http.client
 import traceback
 import smtp_creds
+import requests
 
 __author__ = "David Blume"
 __copyright__ = "Copyright 2008-2022, David Blume"
@@ -105,61 +106,59 @@ def process_feed(feed_info, raw_stream):
     ### Uncomment me to force a rebuild of all individual feed pages.
 #    modified_feeds.add(feed_info['name'])
 
-    my_etag = None
-    my_modified = None
-    if 'etag' in feed_info:
-        my_etag = feed_info['etag']
+    headers = {'User-Agent': 'feedparser/6.0.11 +https://github.com/kurtmckee/feedparser/'}
     if 'modified' in feed_info and \
        ('request' not in feed_info or feed_info['request'] != 'unconditional'):
         # goodreads lies. It doesn't reply with a fresh feed when given an old modified time.
-        my_modified = feed_info['modified']
+        headers['If-Modified-Since'] = feed_info['modified']
+    elif 'etag' in feed_info:
+        headers['If-None-Match'] = feed_info['etag']
 
     if 'feed' not in feed_info:
         return feed_info
     progress_text.append(feed_info['name'])
-    if my_modified is not None:
-        feed = feedparser.parse(feed_info['feed'].strip('"'), modified=my_modified)
+    r = requests.get(feed_info['feed'].strip('"'), headers=headers)
+    if r.status_code == 304:
+        feed_is_modified = False
     else:
-        feed = feedparser.parse(feed_info['feed'].strip('"'), etag=my_etag)
-    if hasattr(feed, 'status'):
-        if feed.status != 304:
-            feed_is_modified = True
-            if feed.status != 200 and feed.status != 307 and feed.status != 301 and feed.status != 302:
-                if feed.status == 503:
-                    print("%s is temporarily unavailable." % (feed_info['name'],))
-                elif feed.status == 400:
-                    print("%s says we made a bad request." % (feed_info['name'],))
-                elif feed.status == 403:
-                    print("Access to %s was forbidden." % (feed_info['name'],))
-                elif feed.status == 404:
-                    print("%s says the page was not found." % (feed_info['name'],))
-                elif feed.status == 408:
-                    print("The socket request to %s timed out." % (feed_info['name'],))
-                elif feed.status == 500:
-                    print("%s had an internal server error." % (feed_info['name'],))
-                elif feed.status == 502:
-                    print("%s reported a bad gateway error." % (feed_info['name'],))
-                elif feed.status == 504:
-                    print("%s had a slow IP communication between back-end computers." % (feed_info['name'],))
-                else:
-                    print("%s returned feed.status %d." % (feed_info['feed'].strip('"'), feed.status))
+        feed_is_modified = True
+        if r.status_code != 200 and r.status_code != 307 and r.status_code != 301 and r.status_code != 302:
+            if r.status_code == 503:
+                print("%s is temporarily unavailable." % (feed_info['name'],))
+            elif r.status_code == 400:
+                print("%s says we made a bad request." % (feed_info['name'],))
+            elif r.status_code == 403:
+                print("Access to %s was forbidden." % (feed_info['name'],))
+            elif r.status_code == 404:
+                print("%s says the page was not found." % (feed_info['name'],))
+            elif r.status_code == 408:
+                print("The socket request to %s timed out." % (feed_info['name'],))
+            elif r.status_code == 500:
+                print("%s had an internal server error." % (feed_info['name'],))
+            elif r.status_code == 502:
+                print("%s reported a bad gateway error." % (feed_info['name'],))
+            elif r.status_code == 504:
+                print("%s had a slow IP communication between back-end computers." % (feed_info['name'],))
             else:
-                # Save off this
-                try:
-                    with open(os.path.join(current_feeds_dir, feed_info['name'] + '.pickle'), 'wb') as f:
-                        pickle.dump(feed, f)
-                except (pickle.PicklingError, TypeError) as e:
-                    if hasattr(feed, 'bozo_exception') and \
-                       isinstance(feed.bozo_exception, xml.sax._exceptions.SAXParseException):
-                        print("%s had an unpickleable bozo_exception, %s." % \
-                              (feed_info['name'], str(feed.bozo_exception).replace('\n', '')))
-                    else:
-                        print("An error occurred while pickling %s: %s." % \
-                              (feed_info['name'],
-                                # str(e.__class__),
-                                str(e)))
-                    feed_is_modified = False
-                f.close()
+                print("%s returned r.status_code %d." % (feed_info['feed'].strip('"'), r.status_code))
+        else:
+            feed = feedparser.parse(r.text)  # Maybe try r.content for bytes
+            #print(f'{feed_info["name"]} {r.status_code=} {feed.bozo=}')
+            # Save this feed to disk
+            try:
+                with open(os.path.join(current_feeds_dir, feed_info['name'] + '.pickle'), 'wb') as f:
+                    pickle.dump(feed, f)
+            except (pickle.PicklingError, TypeError) as e:
+                if hasattr(feed, 'bozo_exception') and \
+                   isinstance(feed.bozo_exception, xml.sax._exceptions.SAXParseException):
+                    print("%s had an unpickleable bozo_exception, %s." % \
+                          (feed_info['name'], str(feed.bozo_exception).replace('\n', '')))
+                else:
+                    print("An error occurred while pickling %s: %s." % \
+                          (feed_info['name'],
+                            # str(e.__class__),
+                            str(e)))
+                feed_is_modified = False
 
             # Process this feed.
             latest_entry = extract_feed_info(feed,
@@ -169,43 +168,14 @@ def process_feed(feed_info, raw_stream):
             if feed_is_modified:
                 feed_info['latest_entry'] = str(latest_entry)
                 modified_feeds.add(feed_info['name'])
-                if hasattr(feed, 'etag') and feed.etag != None:
-                    feed_info['etag'] = feed.etag
+                if 'etag' in r.headers:
+                    feed_info['etag'] = r.headers['etag']
                 elif 'etag' in feed_info:
                     feed_info.pop('etag')
-                if hasattr(feed, 'modified') and feed.modified != None:
-                    feed_info['modified'] = feed.modified
+                if 'last-modified' in r.headers:
+                    feed_info['modified'] = r.headers['last-modified']
                 elif 'modified' in feed_info:
                     feed_info.pop('modified')
-    else:
-        if hasattr(feed, 'bozo_exception'):
-            e = feed.bozo_exception
-            if isinstance(e, urllib.error.URLError): # e.__class__ == urllib2.URLError: # and hasattr(e, 'errno') and e.errno == 110:
-                print_last_line = True
-                if hasattr(e, 'reason'):
-                    if e.reason[0] == 110:
-                        print("%s's connection timed out." % (feed_info['name'],))
-                        print_last_line = False
-                    elif e.reason[0] == 111:
-                        print("%s's connection was refused." % (feed_info['name'],))
-                        print_last_line = False
-                    elif e.reason[0] == 104:
-                        print("%s reset the connection." % (feed_info['name'],))
-                        print_last_line = False
-                    else:
-                        print("%s had a URLError with reason %s." % (feed_info['name'], str(e.reason)))
-                        print_last_line = False
-                if print_last_line:
-                    print("%s had a URLError %s" % (feed_info['name'], str(e)))
-            elif isinstance(e, http.client.BadStatusLine):
-                print("%s gave a bad status line (%s)." % (feed_info['name'], str(e)))
-            else:
-                if len(str(e)):
-                    print("%s bozo_exception: %s \"%s\"" % (feed_info['name'], str(e.__class__), str(e)))
-                else:
-                    print("%s bozo_exception: %s %s" % (feed_info['name'], str(e.__class__), repr(e)))
-        else:
-            print("%s returned class %s, %s" % (feed_info['feed'].strip('"'), str(feed.__class__), str(feed)))
 
     return feed_info
 
