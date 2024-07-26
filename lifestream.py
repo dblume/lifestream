@@ -117,7 +117,11 @@ def process_feed(feed_info, raw_stream):
     if 'feed' not in feed_info:
         return feed_info
     progress_text.append(feed_info['name'])
-    r = requests.get(feed_info['feed'].strip('"'), headers=headers)
+    try:
+        r = requests.get(feed_info['feed'].strip('"'), headers=headers)
+    except requests.RequestException as e:
+        print(f"Requesting {feed_info['name']} got exception {e}.")
+        return feed_info
     if r.status_code == 304:
         feed_is_modified = False
     else:
