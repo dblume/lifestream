@@ -17,6 +17,7 @@ import shutil
 import smtplib
 import xml
 from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 import urllib.request, urllib.error, urllib.parse
 import http.client
 import traceback
@@ -305,7 +306,7 @@ def maybe_write_feed(filename, prefs, raw_stream, now_in_seconds):
         f.write('<tr>\n' \
                 '<th>%s</th>\n' % (time.strftime('%I:%M%p', current_time).lower().lstrip('0'),) )
         f.write('<td><a rel="bookmark" href="%s">%s</a></td>\n' % (url, title))
-        f.write('<td><a href="%s"><img src="http://david.dlma.com/lifestream/favicons/%s.gif" alt="%s" /></a></td>\n</tr>\n' % (style_map[source][1], source, source))
+        f.write('<td><a href="%s"><img src="https://david.dlma.com/lifestream/favicons/%s.gif" alt="%s" /></a></td>\n</tr>\n' % (style_map[source][1], source, source))
 
     f.write("</table>]]></description></item>");
     f.write("</channel></rss>")
@@ -356,7 +357,8 @@ def write_html(localdir, filename, archive_date, custom_header_text, raw_stream,
     day = 0
     this_year = time.localtime(time.time()).tm_year
     for etime, source, url, title, description, extra in reversed(raw_stream):
-        current_time = time.localtime(etime)
+        # current_time = time.localtime(etime)  # relies on server's local timezone.
+        current_time = datetime.fromtimestamp(etime, ZoneInfo('US/Pacific')).timetuple()
         if current_time.tm_yday != day:
             if day != 0:
                 f.write('</tbody>')
@@ -422,7 +424,8 @@ def write_individual_feed_html(localdir, modified_feeds, raw_stream, style_map):
     for etime, source, url, title, description, extra in reversed(raw_stream):
         if source in html_files:
             f = html_files[source][0]
-            current_time = time.localtime(etime)
+            # current_time = time.localtime(etime)  # relies on server's local timezone
+            current_time = datetime.fromtimestamp(etime, ZoneInfo('US/Pacific')).timetuple()
             t_string = time.strftime('%b', current_time)
             if current_time.tm_year == this_year:
                 t_string += ' %d,' % (current_time.tm_mday,)
