@@ -1,13 +1,7 @@
-# yaml preferences for lifestream
-# http://www.yaml.org/
-# This file is read in and written by the lifestream python script
-
--
-  description : "A weekly summary of all the feeds that David aggregates for himself."
-  item_title : "David's Lifestream: Week of "
-  name : "David's Lifestream (weekly summary)"
-  oldest_year : 2007
-  perma_url : "https://david.dlma.com/lifestream/all.html"
-  updated : 1669538535
-  url : "https://david.dlma.com/lifestream/index.html"
-
+- description: A weekly summary of all the feeds that David aggregates for himself.
+  item_title: 'David''s Lifestream: Week of '
+  name: David's Lifestream (weekly summary)
+  oldest_year: 2007
+  perma_url: https://david.dlma.com/lifestream/all.html
+  updated: '1734226942'
+  url: https://david.dlma.com/lifestream/index.html
