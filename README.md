@@ -69,6 +69,7 @@ These are the feeds of short messages I made.
 * Plurk
 * ~~Twitter~~
 * Mastodon
+* BlueSky
 
 ### Songs and Audio
 

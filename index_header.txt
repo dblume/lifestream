@@ -87,7 +87,7 @@
         <div id="mastodon" style="padding: 2px; display: none; text-align: center"><a title="message: mastodon" style="background: #fff; padding: 0" href="https://david.dlma.com/lifestream/mastodon.html"><img width="24" height="24" src="favicons/mastodon.gif" alt="mastodon" /></a></div>
     </td> 
     <td class="message" width="44" onmouseout="toggle_image('tasks',false)" onmouseover="toggle_image('tasks',true)" >
-        <div id="tasks_text" style="text-align: center"><a title="message: tasks" href="https://david.dlma.com/lifestream/tasks.html">TkD</a></div>
+        <div id="tasks_text" style="text-align: center"><a title="message: tasks" href="https://david.dlma.com/lifestream/tasks.html">TskD</a></div>
         <div id="tasks" style="padding: 2px; display: none; text-align: center"><a title="message: tasks" style="background: #fff; padding: 0" href="https://david.dlma.com/lifestream/tasks.html"><img width="24" height="24" src="favicons/tasks.gif" alt="tasks" /></a></div>
     </td> 
     <td class="message" width="44" onmouseout="toggle_image('twitter',false)" onmouseover="toggle_image('twitter',true)" >
@@ -128,9 +128,9 @@
         <div id="plurk_text" style="text-align: center"><a title="message: plurk" href="https://david.dlma.com/lifestream/plurk.html">Plur</a></div>
         <div id="plurk" style="padding: 2px; display: none; text-align: center"><a title="message: plurk" style="background: #fff; padding: 0" href="https://david.dlma.com/lifestream/plurk.html"><img width="24" height="24" src="favicons/plurk.gif" alt="plurk" /></a></div>
     </td> 
-    <td class="message" width="44" onmouseout="toggle_image('dblume_tasks',false)" onmouseover="toggle_image('dblume_tasks',true)" >
-        <div id="dblume_tasks_text"><a title"message: dblume_tasks" href="https://david.dlma.com/lifestream/dblume_tasks.html">TkB</a></div>
-        <div id="dblume_tasks" style="padding: 2px; display: none; text-align: center"><a title="message: dblume_tasks" style="background: #fff; padding: 0" href="https://david.dlma.com/lifestream/dblume_tasks.html"><img width="24" height="24" src="favicons/dblume_tasks.gif" alt="dblume_tasks" /></a></div>
+    <td class="message" width="44" onmouseout="toggle_image('bluesky',false)" onmouseover="toggle_image('bluesky',true)" >
+        <div id="bluesky_text"><a title"message: bluesky" href="https://david.dlma.com/lifestream/bluesky.html">Bsky</a></div>
+        <div id="bluesky" style="padding: 2px; display: none; text-align: center"><a title="message: bluesky" style="background: #fff; padding: 0" href="https://david.dlma.com/lifestream/bluesky.html"><img width="24" height="24" src="favicons/bluesky.gif" alt="bluesky" /></a></div>
     </td> 
     <td class="song" width="44" onmouseout="toggle_image('overcast',false)" onmouseover="toggle_image('overcast',true)" >
         <div id="overcast_text" style="text-align: center"><a title="song: overcast" href="https://david.dlma.com/lifestream/overcast.html">OCst</a></div>
